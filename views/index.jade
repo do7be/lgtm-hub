@@ -20,3 +20,14 @@ html
   body
     h1= title
     p Welcome to #{title}
+    textarea
+
+block scripts
+  script.
+      $.getJSON("http://www.lgtm.in/g", function (data) {
+        $("textarea").
+          append("\n\n" + data.markdown);
+          console.log(data);
+        $("body").
+          append("<img src=" + data.imageUrl + ">");
+      });

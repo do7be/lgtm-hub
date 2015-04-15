@@ -4,20 +4,8 @@ html
     meta(charset='utf-8')
     title= title
     link(rel='stylesheet', href='/css/style.css')
-    mixin loadJQuery( version )
-      script(src="https://ajax.googleapis.com/ajax/libs/jquery/#{ version }/jquery.min.js")
 
-      script.
-        window.jQuery || document.write("<script src='js/jquery-#{ version }.min.js'><\/script>");
-
-    <!--[if lt IE 9]>
-    +loadJQuery('1.10.2')
-    <![endif]-->
-
-    //[if gte IE 9]><!
-    +loadJQuery('2.0.3')
-    //<![endif]
-
+    script(src="/js/jquery-1.11.2.min.js")
     script(src="/js/get_json.js")
     script(src="/js/zeroclipboard/ZeroClipboard.min.js")
 

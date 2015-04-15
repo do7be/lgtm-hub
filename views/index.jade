@@ -17,17 +17,13 @@ html
     //[if gte IE 9]><!
     +loadJQuery('2.0.3')
     //<![endif]
+
+    script(src="/js/get_json.js")
+
   body
     h1= title
-    p Welcome to #{title}
+    p Get LGTM Picture
+    button(class="btn", data-action="reload").
+      Reload
     textarea
 
-block scripts
-  script.
-      $.getJSON("http://www.lgtm.in/g", function (data) {
-        $("textarea").
-          append("\n\n" + data.markdown);
-          console.log(data);
-        $("body").
-          append("<img src=" + data.imageUrl + ">");
-      });

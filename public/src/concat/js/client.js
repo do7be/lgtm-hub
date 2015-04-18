@@ -27,9 +27,9 @@ $(function(){
 $(function(){
 //  $('#recommend_img_area').nivoSlider();
 });
-  var socket = io();
-
 $(function(){
+
+  var socket = io();
 
   $('.lgtm_img').on('click', function() {
     socket.emit("select image", {img: $(this).attr('src')});

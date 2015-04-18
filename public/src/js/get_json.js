@@ -12,6 +12,7 @@ $(function(){
           .attr('src', data.imageUrl)
           .attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
 
+
         // copy github form url to clipboard
         var client = new ZeroClipboard( this_obj );
         client.on( "ready", function( readyEvent ) {

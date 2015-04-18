@@ -1,3 +1,3 @@
 $(function(){
-  $('#recommend_img_area').nivoSlider();
+//  $('#recommend_img_area').nivoSlider();
 });

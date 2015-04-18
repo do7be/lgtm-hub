@@ -9,14 +9,14 @@ module.exports = function(grunt) {
               // 元ファイルの指定。
               src : 'public/src/js/*.js',
               // 出力ファイルの名前・パス指定
-              dest: 'public/src/js/client.js'
+              dest: 'public/src/concat/js/client.js'
           }
       },
       uglify: {
           dist: {
               files: {
                   // 出力ファイル: 元ファイル
-                  'public/js/client.min.js': 'public/src/js/client.js'
+                  'public/js/client.min.js': 'public/src/concat/js/client.js'
               }
           }
       },

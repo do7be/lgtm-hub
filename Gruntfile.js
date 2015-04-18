@@ -7,22 +7,22 @@ module.exports = function(grunt) {
       concat: {
           files: {
               // 元ファイルの指定。
-              src : 'public/js/src/*.js',
+              src : 'public/src/js/*.js',
               // 出力ファイルの名前・パス指定
-              dest: 'public/js/src/client.js'
+              dest: 'public/src/js/client.js'
           }
       },
       uglify: {
           dist: {
               files: {
                   // 出力ファイル: 元ファイル
-                  'public/js/client.min.js': 'js/src/client.js'
+                  'public/js/client.min.js': 'public/src/js/client.js'
               }
           }
       },
       watch: {
           js: {
-              files: 'public/js/src/*.js', // 監視対象ファイル
+              files: 'public/src/js/*.js', // 監視対象ファイル
               tasks: ['concat', 'uglify'] // 実行させるタスク
           }
       }

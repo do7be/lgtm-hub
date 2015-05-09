@@ -11,6 +11,15 @@ a {
   color: #00B7FF;
 }
 
+#tweet_button {
+  float: right;
+  margin-top: 10px;
+}
+
+.clear_both {
+  clear: both;
+}
+
 .window {
   padding-top: 50px;
   padding-bottom: 50px;

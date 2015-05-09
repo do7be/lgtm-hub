@@ -14,7 +14,7 @@ a {
 #img_area>div, .img_box{
   float: left;
   width: 313px;
-  height: 330px;
+  height: 310px;
 }
 
 img.lgtm_img {
@@ -23,7 +23,7 @@ img.lgtm_img {
 }
 
 #img_area {
-  height: 450px;
+  height: 370px;
 }
 
 #recommend_img_area {

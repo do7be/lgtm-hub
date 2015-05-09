@@ -7,6 +7,17 @@ a {
   color: #00B7FF;
 }
 
+#img_area {
+  margin-top: 30px;
+}
+
+#img_area div {
+  float: left;
+  width: 313px;
+  height: 330px;
+}
+
 img.lgtm_img {
-  width : 300px;
+  width: 313px;
+  max-height: 300px;
 }

@@ -4,6 +4,17 @@ $(function(){
   $('[data-action=reload]').on('click', function() {
     loadLgtmImages();
   });
+
+  // copy button handler
+  $(".lgtm_img_copy").each(function(i, this_obj){
+    // copy github form url to clipboard
+    var client = new ZeroClipboard( this_obj );
+    client.on( "ready", function( readyEvent ) {
+      client.on( "aftercopy", function( event ) {
+        alert("Copied!: " + event.data["text/plain"] );
+      });
+    });
+  });
 });
 
 function loadLgtmImages(){
@@ -17,16 +28,8 @@ function loadLgtmImages(){
       // add lgtm image to display
       $(this_obj)
         .attr('src', data.imageUrl)
-        .attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
-
-
-      // copy github form url to clipboard
-      var client = new ZeroClipboard( this_obj );
-      client.on( "ready", function( readyEvent ) {
-        client.on( "aftercopy", function( event ) {
-          alert("Copied!: " + event.data["text/plain"] );
-        });
-      });
+        .parent().next().attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
     });
   });
 }
+

@@ -2,25 +2,42 @@ doctype html
 html
   head
     meta(charset='utf-8')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     title= title
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/style.css')
 
     script(src="/js/jquery-1.11.2.min.js")
+    script(src="/js/bootstrap.min.js")
     script(src="/socket.io/socket.io.js")
     script(src="/js/client.min.js")
     script(src="/js/zeroclipboard/ZeroClipboard.min.js")
 
   body
-    h1= title
-    p Get LGTM Picture
-    button(class="btn", data-action="reload").
-      Reload
-    textarea
-    section(id="img_area")
-      img(class="lgtm_img")
-      img(class="lgtm_img")
-      img(class="lgtm_img")
-    section(id="recommend_img_area")
+    section(class="container")
+      div(class="text-center")
+        h1= title
+        p Get LGTM Images
+      section(id="reload_area" class="text-center")
+        button(class="btn btn-primary btn-large", data-action="reload").
+          Reload
+      section(id="img_area")
+        div(class="text-center")
+          div
+            img(class="lgtm_img")
+          button(class="lgtm_img_copy btn btn-warning btn-large").
+            Copy
+        div(class="text-center")
+          div
+            img(class="lgtm_img")
+          button(class="lgtm_img_copy btn btn-warning btn-large").
+            Copy
+        div(class="text-center")
+          div
+            img(class="lgtm_img")
+          button(class="lgtm_img_copy btn btn-warning btn-large").
+            Copy
+      section(id="recommend_img_area")
 
 
 

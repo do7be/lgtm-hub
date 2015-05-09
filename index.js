@@ -63,5 +63,9 @@ function checkDataImg (img) {
     return false;
   }
 
+  if(recommend.indexOf(img) >= 0){
+    return false;
+  }
+
   return true;
 }

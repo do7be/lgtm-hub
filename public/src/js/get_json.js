@@ -1,12 +1,23 @@
 $(function(){
-  // 画面読み込み時に画像を読み込んで表示しておく
+  // initialize load
   loadLgtmImages()
+
+  // click reload button
   $('[data-action=reload]').on('click', function() {
     var self = this;
+
+    // show tooltip
     $(self).tooltip('show');
     setTimeout( function () {
       $(self).tooltip('destroy');
     } , 1000 );
+
+    // disable reload button for 1000ms
+    $(self).prop("disabled", true);
+    setTimeout( function () {
+      $(self).prop("disabled", false);
+    } , 1000 );
+
     loadLgtmImages();
   });
 

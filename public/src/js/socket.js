@@ -2,8 +2,8 @@ $(function(){
 
   var socket = io();
 
-  $('.lgtm_img').on('click', function() {
-    socket.emit("select image", {img: $(this).attr('src')});
+  $('.lgtm_img_copy').on('click', function() {
+    socket.emit("select image", {img: $(this).prev().children('img').attr('src')});
   });
 
   socket.on('add recommend', function (data) {

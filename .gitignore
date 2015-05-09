@@ -1,5 +1,4 @@
 node_modules
 .idea
 npm-debug.log
-*.min.js
 public/src/concat/

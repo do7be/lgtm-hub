@@ -76,3 +76,7 @@ img.lgtm_img {
 #recommend_img_area button {
   clear: both;
 }
+
+#lgtm_site_text {
+  float: right;
+}

@@ -6,11 +6,22 @@ $(function(){
     socket.emit("select image", {img: $(this).prev().children('img').attr('src')});
   });
 
+  socket.on('load recommend', function (data) {
+    var image_num = data.length;
+    for (var i=0; i<image_num; i++) {
+      addRecommendImage(data[i]);
+    }
+  });
+
   socket.on('add recommend', function (data) {
-    var image_url = '![LGTM](' + data.imageUrl + ')';
+    addRecommendImage(data.img);
+  });
+
+  function addRecommendImage (img) {
+    var image_url = '![LGTM](' + img + ')';
 
     var img_box = $('<div class="recommend_img_box"></div>')
-      .append('<img src="' + data.img + '">');
+      .append('<img src="' + img + '">');
 
     var recommend_box = $('<div class="text-center"></div>')
       .append(img_box)
@@ -18,6 +29,6 @@ $(function(){
 
     $('#recommend_img_area')
       .append(recommend_box);
-  });
+  }
 });
 

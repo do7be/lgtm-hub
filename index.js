@@ -31,14 +31,37 @@ app.get('/', function(request, response) {
 var socket_io = require('socket.io');
 var io = socket_io.listen(server);
 
-var recommend = {};
+var recommend = new Array();
 
 io.on('connection', function (socket) {
 
+  socket.emit('load recommend', recommend);
+
   socket.on('select image', function (data) {
-    console.log(data.img);
-    socket.broadcast.emit('add recommend', {
-      img: data.img,
-    });
+
+    if (checkDataImg(data.img)) {
+
+      recommend.push(data.img);
+      if(recommend.length >= 10) {
+        recommend.shift();
+      }
+
+      socket.broadcast.emit('add recommend', {
+        img: data.img,
+      });
+    }
   });
 });
+
+// sanitizing
+function checkDataImg (img) {
+  if (img.match(/"/) !== null || img.match(/'/) !== null) {
+    return false;
+  }
+
+  if (img.match(/http:\/\/lgtm.in\/p\//) === false) {
+    return false;
+  }
+
+  return true;
+}

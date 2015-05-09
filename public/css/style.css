@@ -21,3 +21,27 @@ img.lgtm_img {
   width: 313px;
   max-height: 300px;
 }
+
+#img_area {
+  height: 500px;
+}
+
+#recommend_img_area {
+  width: 100%;
+  height: 150px;
+}
+
+#recommend_img_area>div, .recommend_img_box {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+
+#recommend_img_area img {
+  clear: both;
+  width: 100px;
+  max-height: 100px;
+}
+#recommend_img_area button {
+  clear: both;
+}

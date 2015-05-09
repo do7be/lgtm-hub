@@ -9,6 +9,7 @@ app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
 
+
 var env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
 }
@@ -22,7 +23,7 @@ server.listen(app.get('port'), function () {
 
 // route
 app.get('/', function(request, response) {
-  response.render('index', { title: 'Express Sample' });
+  response.render('index', { title: 'Hub LGTM' });
 });
 
 

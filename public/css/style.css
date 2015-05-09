@@ -11,7 +11,7 @@ a {
   margin-top: 30px;
 }
 
-#img_area div {
+#img_area>div, .img_box{
   float: left;
   width: 313px;
   height: 330px;

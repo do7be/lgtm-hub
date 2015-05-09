@@ -11,7 +11,10 @@ $(function(){
     var client = new ZeroClipboard( this_obj );
     client.on( "ready", function( readyEvent ) {
       client.on( "aftercopy", function( event ) {
-        alert("Copied!: " + event.data["text/plain"] );
+        $(this_obj).tooltip('show');
+        setTimeout( function () {
+          $(this_obj).tooltip('destroy');
+        } , 1000 );
       });
     });
   });

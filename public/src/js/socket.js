@@ -30,7 +30,7 @@ $(function(){
 
     var recommend_box = $('<div class="text-center"></div>')
       .append(img_box)
-      .append('<buttton data-clipboard-text="' + image_url + '" class="recommend_lgtm_img_copy btn btn-warning btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">Copy</button>');
+      .append('<buttton data-clipboard-text="' + image_url + '" class="recommend_lgtm_img_copy btn btn-success btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">Copy</button>');
 
     $('#recommend_img_area')
       .append(recommend_box);

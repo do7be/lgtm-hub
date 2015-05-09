@@ -42,7 +42,7 @@ io.on('connection', function (socket) {
     if (checkDataImg(data.img)) {
 
       recommend.push(data.img);
-      if(recommend.length >= 10) {
+      if(recommend.length > 10) {
         recommend.shift();
       }
 

@@ -18,6 +18,10 @@ $(function(){
   });
 
   function addRecommendImage (img) {
+    if ($('.recommend_img_box').length >= 10) {
+      $('.recommend_img_box:first').parent().remove();
+    }
+
     var image_url = '![LGTM](' + img + ')';
 
     var img_box = $('<div class="recommend_img_box"></div>')

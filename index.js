@@ -1,4 +1,5 @@
 var express = require('express');
+var sanitize = require('validator');
 var app = express();
 var server = require('http').createServer(app);
 
@@ -39,15 +40,19 @@ io.on('connection', function (socket) {
 
   socket.on('select image', function (data) {
 
-    if (checkDataImg(data.img)) {
+    var img_url = data.img;
 
-      recommend.push(data.img);
+    if (checkDataImg(img_url)) {
+
+      img_url = sanitize.toString(img_url);
+
+      recommend.push(img_url);
       if(recommend.length > 10) {
         recommend.shift();
       }
 
       socket.broadcast.emit('add recommend', {
-        img: data.img,
+        img: img_url,
       });
     }
   });

@@ -11,6 +11,7 @@ $(function(){
     for (var i=0; i<image_num; i++) {
       addRecommendImage(data[i]);
     }
+    $(".recommend_lgtm_img_copy").each(function(i, this_obj){setHandler(i, this_obj)});
   });
 
   socket.on('add recommend', function (data) {
@@ -29,7 +30,7 @@ $(function(){
 
     var recommend_box = $('<div class="text-center"></div>')
       .append(img_box)
-      .append('<buttton data-clipboard-text="' + image_url + '" class="lgtm_img_copy btn btn-warning btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">Copy</button>');
+      .append('<buttton data-clipboard-text="' + image_url + '" class="recommend_lgtm_img_copy btn btn-warning btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">Copy</button>');
 
     $('#recommend_img_area')
       .append(recommend_box);

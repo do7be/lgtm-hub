@@ -2,6 +2,11 @@ $(function(){
   // 画面読み込み時に画像を読み込んで表示しておく
   loadLgtmImages()
   $('[data-action=reload]').on('click', function() {
+    var self = this;
+    $(self).tooltip('show');
+    setTimeout( function () {
+      $(self).tooltip('destroy');
+    } , 1000 );
     loadLgtmImages();
   });
 

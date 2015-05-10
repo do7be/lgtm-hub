@@ -24,7 +24,7 @@ server.listen(app.get('port'), function () {
 
 // route
 app.get('/', function(request, response) {
-  response.render('index', { title: 'Hub LGTM' });
+  response.render('index', { title: 'LGTM-HUB' });
 });
 
 

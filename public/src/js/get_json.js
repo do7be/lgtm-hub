@@ -2,6 +2,9 @@ $(function(){
   // initialize load
   loadLgtmImages()
 
+  // initialize tooltip
+  $('button').tooltip('destroy');
+
   // click reload button
   $('[data-action=reload]').on('click', function() {
     var self = this;

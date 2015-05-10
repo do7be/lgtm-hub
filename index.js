@@ -64,7 +64,7 @@ function checkDataImg (img) {
     return false;
   }
 
-  if (img.match(/http:\/\/lgtm.in\/p\//) === false) {
+  if (img.match(/^http:\/\/lgtm.in\/p\//) === false) {
     return false;
   }
 

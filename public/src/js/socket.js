@@ -13,8 +13,8 @@ $(function () {
     for (var i = 0; i < image_num; i++) {
       addRecommendImage(data[i]);
     }
-    $(".recommend_lgtm_img_copy").each(function (i, this_obj) {
-      setHandler(i, this_obj);
+    $(".recommend_lgtm_img_copy").each(function (i, obj) {
+      setHandler(i, obj);
     });
   });
 

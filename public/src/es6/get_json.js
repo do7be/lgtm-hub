@@ -1,56 +1,57 @@
-$(function(){
+$(function() {
   // initialize load
-  loadLgtmImages()
+  loadLgtmImages();
 
   // initialize tooltip
   $('button').tooltip('destroy');
 
   // click reload button
   $('[data-action=reload]').on('click', function() {
-    var self = this;
 
     // show tooltip
-    $(self).tooltip('show');
-    setTimeout( function () {
-      $(self).tooltip('destroy');
-    } , 1000 );
+    $(this).tooltip('show');
+    setTimeout(() => {
+      $(this).tooltip('destroy');
+    }, 1000);
 
     // disable reload button for 1000ms
-    $(self).prop("disabled", true);
-    setTimeout( function () {
-      $(self).prop("disabled", false);
-    } , 1000 );
+    $(this).prop("disabled", true);
+    setTimeout(() => {
+      $(this).prop("disabled", false);
+    }, 1000);
 
     loadLgtmImages();
   });
 
   // copy button handler
-  $(".lgtm_img_copy").each(function(i, this_obj){setHandler(i, this_obj)});
+  $(".lgtm_img_copy").each((i, obj) => {
+    setHandler(i, obj);
+  });
 });
 
-function setHandler (i, this_obj) {
+function setHandler(i, obj) {
   // copy github form url to clipboard
-  var client = new ZeroClipboard( this_obj );
-  client.on( "ready", function( readyEvent ) {
-    client.on( "aftercopy", function( event ) {
-      $(this_obj).tooltip('show');
-      setTimeout( function () {
-        $(this_obj).tooltip('destroy');
-      } , 1000 );
+  let client = new ZeroClipboard(obj);
+  client.on("ready", function(readyEvent) {
+    client.on("aftercopy", function(event) {
+      $(obj).tooltip('show');
+      setTimeout(() => {
+        $(obj).tooltip('destroy');
+      }, 1000);
     });
   });
 };
 
-function loadLgtmImages(){
-  $(".lgtm_img").each(function(i, this_obj){
-    $.getJSON("http://www.lgtm.in/g", function (data) {
+function loadLgtmImages() {
+  $(".lgtm_img").each((i, obj) => {
+    $.getJSON("http://www.lgtm.in/g", (data) => {
 
       // add lgtm url to textarea
       $("textarea")
         .append("\n\n" + data.markdown);
 
       // add lgtm image to display
-      $(this_obj)
+      $(obj)
         .attr('src', data.imageUrl)
         .parent().next().attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
     });

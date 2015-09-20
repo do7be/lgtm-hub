@@ -9,51 +9,51 @@ $(function () {
 
   // click reload button
   $('[data-action=reload]').on('click', function () {
-    var self = this;
+    var _this = this;
 
     // show tooltip
-    $(self).tooltip('show');
+    $(this).tooltip('show');
     setTimeout(function () {
-      $(self).tooltip('destroy');
+      $(_this).tooltip('destroy');
     }, 1000);
 
     // disable reload button for 1000ms
-    $(self).prop("disabled", true);
+    $(this).prop("disabled", true);
     setTimeout(function () {
-      $(self).prop("disabled", false);
+      $(_this).prop("disabled", false);
     }, 1000);
 
     loadLgtmImages();
   });
 
   // copy button handler
-  $(".lgtm_img_copy").each(function (i, this_obj) {
-    setHandler(i, this_obj);
+  $(".lgtm_img_copy").each(function (i, obj) {
+    setHandler(i, obj);
   });
 });
 
-function setHandler(i, this_obj) {
+function setHandler(i, obj) {
   // copy github form url to clipboard
-  var client = new ZeroClipboard(this_obj);
+  var client = new ZeroClipboard(obj);
   client.on("ready", function (readyEvent) {
     client.on("aftercopy", function (event) {
-      $(this_obj).tooltip('show');
+      $(obj).tooltip('show');
       setTimeout(function () {
-        $(this_obj).tooltip('destroy');
+        $(obj).tooltip('destroy');
       }, 1000);
     });
   });
 };
 
 function loadLgtmImages() {
-  $(".lgtm_img").each(function (i, this_obj) {
+  $(".lgtm_img").each(function (i, obj) {
     $.getJSON("http://www.lgtm.in/g", function (data) {
 
       // add lgtm url to textarea
       $("textarea").append("\n\n" + data.markdown);
 
       // add lgtm image to display
-      $(this_obj).attr('src', data.imageUrl).parent().next().attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
+      $(obj).attr('src', data.imageUrl).parent().next().attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
     });
   });
 }

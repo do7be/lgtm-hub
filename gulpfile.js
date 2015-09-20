@@ -1,13 +1,20 @@
-var gulp       = require("gulp"),
-    uglify     = require("gulp-uglify"),
-    concat     = require("gulp-concat"),
-    rename     = require('gulp-rename'),
-    plumber    = require("gulp-plumber"),
-    spawn      = require('child_process').spawn,
-    livereload = require('gulp-livereload'),
+var gulp        = require("gulp"),
+    uglify      = require("gulp-uglify"),
+    concat      = require("gulp-concat"),
+    rename      = require('gulp-rename'),
+    plumber     = require("gulp-plumber"),
+    babel       = require('gulp-babel'),
+    spawn       = require('child_process').spawn,
+    livereload  = require('gulp-livereload'),
+    runSequence = require('run-sequence'),
     server;
 
-// concat & uglify
+// transpile & concat & uglify
+gulp.task('js.transpile', function() {
+  return gulp.src('public/src/es6/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest('public/src/js/'));
+});
 gulp.task('js.concat', function() {
   return gulp.src('public/src/js/*.js')
     .pipe(plumber())
@@ -23,10 +30,12 @@ gulp.task('js.uglify', function() {
 });
 
 // js build
-gulp.task('js', ['js.concat', 'js.uglify']);
+gulp.task('js', function() {
+  runSequence('js.transpile', 'js.concat', 'js.uglify');
+});
 
 // server with node
-gulp.task('server',function(){
+gulp.task('server', function() {
   if(server){
     server.kill('SIGKILL');
     server=undefined;
@@ -45,24 +54,24 @@ gulp.task('server',function(){
   server.stderr.on('data', function(data){
     console.log(data);
   });
-})
+});
 
 // reload browser
 gulp.task('reload', function() {
   gulp.src(['public/*/*', 'views/*'])
     .pipe(livereload());
-})
+});
 
 // watch
 gulp.task('watch',['server'],function(){
   livereload.listen();
 
   // watch for compile
-  gulp.watch(['public/src/js/*.js'], ['js']);
+  gulp.watch(['public/src/es6/*.js'], ['js']);
   // watch for server restart
   gulp.watch(['index.js'], ['server']);
   // watch for browser reload
   gulp.watch(['index.js', 'public/*/*', 'views/*'], ['reload']);
-})
+});
 
 gulp.task('default', ['js']);

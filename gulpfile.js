@@ -1,25 +1,43 @@
 var gulp        = require("gulp"),
+    glob        = require('glob'),
     uglify      = require("gulp-uglify"),
-    concat      = require("gulp-concat"),
     rename      = require('gulp-rename'),
     plumber     = require("gulp-plumber"),
     babel       = require('gulp-babel'),
+    browserify  = require('browserify'),
+    babelify    = require('babelify'),
+    source      = require('vinyl-source-stream'),
     spawn       = require('child_process').spawn,
     livereload  = require('gulp-livereload'),
     runSequence = require('run-sequence'),
     server;
 
+// transpile for browser side js
+gulp.task('js.browserify', ['js.browserifyUtil'], function() {
+  srcFiles = glob.sync('public/src/es6/*.js');
+  return browserify(srcFiles, { debug: true })
+    .transform(babelify)
+    .bundle()
+    .on("error", function (err) { console.log("Error : " + err.message); })
+    .pipe(source('client.js'))
+    .pipe(gulp.dest('public/src/concat/js/'))
+});
+gulp.task('js.browserifyUtil', function() {
+  return browserify('public/src/es6/util/image.js', { debug: true })
+    .transform(babelify)
+    .bundle()
+    .on("error", function (err) { console.log("Error : " + err.message); })
+    .pipe(source('image.js'))
+    .pipe(gulp.dest('public/js/util/'))
+});
+
+
 // transpile & concat & uglify
-gulp.task('js.transpile', function() {
+gulp.task('js.transpile', ['js.transpileUtil'], function() {
   return gulp.src('public/src/es6/*.js')
+    .pipe(plumber())
     .pipe(babel())
     .pipe(gulp.dest('public/src/js/'));
-});
-gulp.task('js.concat', function() {
-  return gulp.src('public/src/js/*.js')
-    .pipe(plumber())
-    .pipe(concat('client.js'))
-    .pipe(gulp.dest('public/src/concat/js/'));
 });
 gulp.task('js.uglify', function() {
   return gulp.src('public/src/concat/js/client.js')
@@ -31,7 +49,7 @@ gulp.task('js.uglify', function() {
 
 // js build
 gulp.task('js', function() {
-  runSequence('js.transpile', 'js.concat', 'js.uglify');
+  runSequence('js.browserify', 'js.uglify');
 });
 
 // server with node
@@ -67,7 +85,7 @@ gulp.task('watch',['server'],function(){
   livereload.listen();
 
   // watch for compile
-  gulp.watch(['public/src/es6/*.js'], ['js']);
+  gulp.watch(['public/src/es6/*.js', ['public/src/es6/util/*.js'], ['js']);
   // watch for server restart
   gulp.watch(['index.js'], ['server']);
   // watch for browser reload

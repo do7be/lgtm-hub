@@ -1,11 +1,6 @@
 import {Image} from './util/image';
 
 $(function() {
-  // initialize load
-  Image.loadLgtmImages();
-
-  // initialize tooltip
-  $('button').tooltip('destroy');
 
   // click reload button
   $('[data-action=reload]').on('click', function() {
@@ -23,11 +18,6 @@ $(function() {
     }, 1000);
 
     Image.loadLgtmImages();
-  });
-
-  // copy button handler
-  $(".lgtm_img_copy").each((i, obj) => {
-    Image.setHandler(i, obj);
   });
 });
 

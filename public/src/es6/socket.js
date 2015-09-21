@@ -1,5 +1,6 @@
 import {Image} from './util/image';
 
+// socket.io emit and bind
 $(function() {
 
   let socket = io();
@@ -8,6 +9,7 @@ $(function() {
     socket.emit("select image", {img: $(this).prev().children('img').attr('src')});
   });
 
+  // load recommend images to display bottom at initialize
   socket.on('load recommend', (data) => {
     let image_num = data.length;
     for (let i = 0; i < image_num; i++) {
@@ -18,6 +20,7 @@ $(function() {
     });
   });
 
+  // load recommend images to display bottom at other people copy
   socket.on('add recommend', function (data) {
     Image.addRecommendImage(data.img);
   });

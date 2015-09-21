@@ -1,3 +1,4 @@
+// Util Functions for Image
 export class Image {
 
   // add other people copied images to display bottom
@@ -35,6 +36,7 @@ export class Image {
     });
   }
 
+  // set handler to button for copy text on clipboard
   static setHandler(i, obj) {
     // copy github form url to clipboard
     let client = new ZeroClipboard(obj);

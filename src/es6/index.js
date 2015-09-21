@@ -1,19 +1,18 @@
-'use strict';
-
 var express = require('express');
 var sanitize = require('validator');
 var app = express();
 var server = require('http').createServer(app);
 
 // server configure
-app.set('port', process.env.PORT || 3000);
+app.set('port', (process.env.PORT || 3000));
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 
-app.use(express['static'](__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 var env = process.env.NODE_ENV || 'development';
-if ('development' == env) {}
+if ('development' == env) {
+}
 
 // server listen
 server.listen(app.get('port'), function () {
@@ -21,7 +20,7 @@ server.listen(app.get('port'), function () {
 });
 
 // route
-app.get('/', function (request, response) {
+app.get('/', function(request, response) {
   response.render('index', { title: 'LGTM-HUB' });
 });
 
@@ -45,19 +44,19 @@ io.on('connection', function (socket) {
       img_url = sanitize.toString(img_url);
 
       recommend.push(img_url);
-      if (recommend.length > 10) {
+      if(recommend.length > 10) {
         recommend.shift();
       }
 
       // recommend image to other people
-      var img_data = { img: img_url };
+      let img_data = {img: img_url};
       socket.broadcast.emit('add recommend', img_data);
     }
   });
 });
 
 // sanitizing
-function checkDataImg(img) {
+function checkDataImg (img) {
   if (img.match(/"/) !== null || img.match(/'/) !== null) {
     return false;
   }
@@ -66,7 +65,7 @@ function checkDataImg(img) {
     return false;
   }
 
-  if (recommend.indexOf(img) >= 0) {
+  if(recommend.indexOf(img) >= 0){
     return false;
   }
 

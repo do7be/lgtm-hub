@@ -24,7 +24,7 @@ gulp.task('js.browserify', function() {
 });
 
 // transpile & concat & uglify
-gulp.task('js.transpile', function() {
+gulp.task('nodejs.transpile', function() {
   return gulp.src('src/es6/*.js')
     .pipe(plumber())
     .pipe(babel())
@@ -40,7 +40,7 @@ gulp.task('js.uglify', function() {
 
 // js build
 gulp.task('js', function() {
-  runSequence('js.browserify', 'js.uglify', 'js.transpile');
+  runSequence('js.browserify', 'js.uglify');
 });
 
 // server with node
@@ -63,6 +63,8 @@ gulp.task('server', function() {
   server.stderr.on('data', function(data){
     console.log(data);
   });
+
+  livereload.listen();
 });
 
 // reload browser
@@ -71,16 +73,21 @@ gulp.task('reload', function() {
     .pipe(livereload());
 });
 
-// watch
-gulp.task('watch',['server'],function(){
-  livereload.listen();
-
-  // watch for compile
-  gulp.watch(['public/src/es6/*.js', 'public/src/es6/util/*.js'], ['js']);
-  // watch for server restart
-  gulp.watch(['index.js'], ['server']);
-  // watch for browser reload
-  gulp.watch(['index.js', 'public/*/*', 'views/*'], ['reload']);
+// server restart and browser reload
+gulp.task('server.reload', function() {
+  runSequence('server', 'reload');
 });
 
-gulp.task('default', ['js']);
+// watch
+gulp.task('watch',['server'],function(){
+  // watch for compile
+  gulp.watch(['public/src/es6/*.js', 'public/src/es6/util/*.js'], ['js']);
+  // watch for node compile
+  gulp.watch(['src/es6/index.js'], ['nodejs.transpile']);
+  // watch for server restart
+  gulp.watch(['index.js'], ['server.reload']);
+  // watch for browser reload
+  gulp.watch(['public/*/*', 'views/*'], ['reload']);
+});
+
+gulp.task('default', ['server']);

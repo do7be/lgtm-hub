@@ -24,11 +24,11 @@ gulp.task('js.browserify', function() {
 });
 
 // transpile & concat & uglify
-gulp.task('js.transpile', ['js.transpileUtil'], function() {
-  return gulp.src('public/src/es6/*.js')
+gulp.task('js.transpile', function() {
+  return gulp.src('src/es6/*.js')
     .pipe(plumber())
     .pipe(babel())
-    .pipe(gulp.dest('public/src/js/'));
+    .pipe(gulp.dest('./'));
 });
 gulp.task('js.uglify', function() {
   return gulp.src('public/src/concat/js/client.js')
@@ -40,7 +40,7 @@ gulp.task('js.uglify', function() {
 
 // js build
 gulp.task('js', function() {
-  runSequence('js.browserify', 'js.uglify');
+  runSequence('js.browserify', 'js.uglify', 'js.transpile');
 });
 
 // server with node

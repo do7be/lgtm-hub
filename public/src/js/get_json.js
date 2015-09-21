@@ -1,8 +1,14 @@
 'use strict';
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+var _utilImage = require('./util/image');
+
+var Image = _interopRequireWildcard(_utilImage);
+
 $(function () {
   // initialize load
-  loadLgtmImages();
+  Image.loadLgtmImages();
 
   // initialize tooltip
   $('button').tooltip('destroy');
@@ -23,7 +29,7 @@ $(function () {
       $(_this).prop("disabled", false);
     }, 1000);
 
-    loadLgtmImages();
+    Image.loadLgtmImages();
   });
 
   // copy button handler
@@ -44,16 +50,3 @@ function setHandler(i, obj) {
     });
   });
 };
-
-function loadLgtmImages() {
-  $(".lgtm_img").each(function (i, obj) {
-    $.getJSON("http://www.lgtm.in/g", function (data) {
-
-      // add lgtm url to textarea
-      $("textarea").append("\n\n" + data.markdown);
-
-      // add lgtm image to display
-      $(obj).attr('src', data.imageUrl).parent().next().attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
-    });
-  });
-}

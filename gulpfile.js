@@ -13,7 +13,7 @@ var gulp        = require("gulp"),
     server;
 
 // transpile for browser side js
-gulp.task('js.browserify', ['js.browserifyUtil'], function() {
+gulp.task('js.browserify', function() {
   srcFiles = glob.sync('public/src/es6/*.js');
   return browserify(srcFiles, { debug: true })
     .transform(babelify)
@@ -22,15 +22,6 @@ gulp.task('js.browserify', ['js.browserifyUtil'], function() {
     .pipe(source('client.js'))
     .pipe(gulp.dest('public/src/concat/js/'))
 });
-gulp.task('js.browserifyUtil', function() {
-  return browserify('public/src/es6/util/image.js', { debug: true })
-    .transform(babelify)
-    .bundle()
-    .on("error", function (err) { console.log("Error : " + err.message); })
-    .pipe(source('image.js'))
-    .pipe(gulp.dest('public/js/util/'))
-});
-
 
 // transpile & concat & uglify
 gulp.task('js.transpile', ['js.transpileUtil'], function() {
@@ -85,7 +76,7 @@ gulp.task('watch',['server'],function(){
   livereload.listen();
 
   // watch for compile
-  gulp.watch(['public/src/es6/*.js', ['public/src/es6/util/*.js'], ['js']);
+  gulp.watch(['public/src/es6/*.js', 'public/src/es6/util/*.js'], ['js']);
   // watch for server restart
   gulp.watch(['index.js'], ['server']);
   // watch for browser reload

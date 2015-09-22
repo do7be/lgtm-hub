@@ -43,15 +43,15 @@ io.on('connection', function (socket) {
     if (checkDataImg(img_url)) {
 
       img_url = sanitize.toString(img_url);
+      var img = { url: img_url, clip_board: "![LGTM](" + img_url + ")" };
 
-      recommend.push(img_url);
+      recommend.push(img);
       if (recommend.length > 10) {
         recommend.shift();
       }
 
       // recommend image to other people
-      var img_data = { img: img_url };
-      socket.broadcast.emit('add recommend', img_data);
+      socket.broadcast.emit('add recommend', img);
     }
   });
 });
@@ -66,7 +66,13 @@ function checkDataImg(img) {
     return false;
   }
 
-  if (recommend.indexOf(img) >= 0) {
+  // check already contain
+  var filetered_recommend = recommend.filter(function (recommended, index) {
+    if (recommended.url == img) {
+      return true;
+    }
+  });
+  if (filetered_recommend.length > 0) {
     return false;
   }
 

@@ -32,6 +32,10 @@ $(function() {
     }
 
     component_recommend.setState(recommend_data);
+
+    $(".recommend_lgtm_img_copy").each((i, obj) => {
+      Image.setHandler(i, obj);
+    });
   });
 });
 

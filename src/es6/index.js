@@ -1,7 +1,7 @@
-var express = require('express');
-var sanitize = require('validator');
-var app = express();
-var server = require('http').createServer(app);
+let express = require('express');
+let sanitize = require('validator');
+let app = express();
+let server = require('http').createServer(app);
 
 // server configure
 app.set('port', (process.env.PORT || 3000));
@@ -10,7 +10,7 @@ app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
 
-var env = process.env.NODE_ENV || 'development';
+let env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
 }
 
@@ -25,10 +25,10 @@ app.get('/', function(request, response) {
 });
 
 // Socket.io
-var socket_io = require('socket.io');
-var io = socket_io.listen(server);
+let socket_io = require('socket.io');
+let io = socket_io.listen(server);
 
-var recommend = new Array();
+let recommend = new Array();
 
 io.on('connection', function (socket) {
 
@@ -37,20 +37,20 @@ io.on('connection', function (socket) {
   // recommend image to other people when user select image
   socket.on('select image', function (data) {
 
-    var img_url = data.img;
+    let img_url = data.img;
 
     if (checkDataImg(img_url)) {
 
       img_url = sanitize.toString(img_url);
+      let img = {url: img_url, clip_board: "![LGTM](" + img_url + ")"}
 
-      recommend.push(img_url);
+      recommend.push(img);
       if(recommend.length > 10) {
         recommend.shift();
       }
 
       // recommend image to other people
-      let img_data = {img: img_url};
-      socket.broadcast.emit('add recommend', img_data);
+      socket.broadcast.emit('add recommend', img);
     }
   });
 });
@@ -65,7 +65,13 @@ function checkDataImg (img) {
     return false;
   }
 
-  if(recommend.indexOf(img) >= 0){
+  // check already contain
+  let filetered_recommend = recommend.filter(function(recommended, index){
+    if (recommended.url == img) {
+      return true;
+    }
+  });
+  if(filetered_recommend.length > 0){
     return false;
   }
 

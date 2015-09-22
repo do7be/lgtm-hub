@@ -30,6 +30,12 @@ gulp.task('nodejs.transpile', function() {
     .pipe(babel())
     .pipe(gulp.dest('./'));
 });
+gulp.task('jsx.transpile', function() {
+  return gulp.src('public/src/views/es6/index.jsx')
+    .pipe(plumber())
+    .pipe(babel())
+    .pipe(gulp.dest('public/src/views/'));
+});
 gulp.task('js.uglify', function() {
   return gulp.src('public/src/concat/js/client.js')
     .pipe(plumber())
@@ -81,9 +87,10 @@ gulp.task('server.reload', function() {
 // watch
 gulp.task('watch',['server'],function(){
   // watch for compile
-  gulp.watch(['public/src/es6/*.js', 'public/src/es6/util/*.js'], ['js']);
+  gulp.watch(['public/src/es6/*.js', 'public/src/es6/util/*.js', 'public/src/views/*.js'], ['js']);
   // watch for node compile
   gulp.watch(['src/es6/index.js'], ['nodejs.transpile']);
+  gulp.watch(['public/src/views/es6/index.jsx'], ['jsx.transpile']);
   // watch for server restart
   gulp.watch(['index.js'], ['server.reload']);
   // watch for browser reload

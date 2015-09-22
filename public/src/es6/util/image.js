@@ -1,43 +1,42 @@
+let React = require('react');
+let Index = require('../../views/index.js');
+
 // Util Functions for Image
 export class Image {
 
-  // add other people copied images to display bottom
-  static addRecommendImage (img) {
-    if ($('.recommend_img_box').length >= 10) {
-      $('.recommend_img_box:first').parent().remove();
-    }
+  // init Random Images
+  static renderLGTM () {
+    this.image_data = [{url: '', clip_board: ''}, {url: '', clip_board: ''}, {url: '', clip_board: ''}];
+    this.component_random = React.render(<Index.RandomList data={this.image_data}/>, document.getElementById("img_area"));
+  }
 
-    let image_url = '![LGTM](' + img + ')';
-
-    let img_box = $('<div class="recommend_img_box"></div>')
-      .append('<img src="' + img + '">');
-
-    let recommend_box = $('<div class="text-center"></div>')
-      .append(img_box)
-      .append('<buttton data-clipboard-text="' + image_url + '" class="recommend_lgtm_img_copy btn btn-success btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">Copy</button>');
-
-    $('#recommend_img_area').append(recommend_box);
+  // init Recommend Images
+  static renderRecommend (data) {
+    this.component_recommend = React.render(<Index.RecommendList data={data} />, document.getElementById("recommend_img_area"));
   }
 
   // load or reload images
-  static loadLgtmImages() {
+  static loadLgtmImages () {
     $(".lgtm_img").each((i, obj) => {
       $.getJSON("http://www.lgtm.in/g", (data) => {
-
-        // add lgtm url to textarea
-        $("textarea")
-          .append("\n\n" + data.markdown);
-
-        // add lgtm image to display
-        $(obj)
-          .attr('src', data.imageUrl)
-          .parent().next().attr('data-clipboard-text', '![LGTM](' + data.imageUrl + ')');
+        this.image_data[i] = {url: data.imageUrl, clip_board: '![LGTM](' + data.imageUrl + ')'};
+        this.component_random.setState({data: this.image_data});
       });
     });
   }
 
+  // add other people recommend
+  static addRecommendImage (data) {
+    let recommend_data = this.component_recommend.state.data;
+    recommend_data.push(data);
+    if(recommend_data.length > 10) {
+      recommend_data.shift();
+    }
+    this.component_recommend.setState(recommend_data);
+  }
+
   // set handler to button for copy text on clipboard
-  static setHandler(i, obj) {
+  static setHandler (i, obj) {
     // copy github form url to clipboard
     let client = new ZeroClipboard(obj);
     client.on("ready", function(readyEvent) {

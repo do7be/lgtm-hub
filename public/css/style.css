@@ -62,7 +62,7 @@ img.lgtm_img {
   margin-bottom: 50px;
 }
 
-#recommend_img_area>div, .recommend_img_box {
+#recommend_img_area div.text-center, .recommend_img_box {
   float: left;
   width: 94px;
   height: 104px;

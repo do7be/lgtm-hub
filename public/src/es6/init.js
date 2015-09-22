@@ -3,6 +3,7 @@ import {Image} from './util/image';
 $(function() {
 
   // initialize load
+  Image.renderLGTM();
   Image.loadLgtmImages();
 
   // initialize tooltip

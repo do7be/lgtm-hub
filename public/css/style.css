@@ -105,22 +105,17 @@ img.lgtm_img {
   Case Zero Clip Board
 */
 
-.btn-warning.zeroclipboard-is-hover {
+/* btn-warning */
+
+.btn-warning.zeroclipboard-is-hover,
+.btn-warning.zeroclipboard-is-focus,
+.btn-warning.zeroclipboard-is-active {
   color: #fff;
   background-color: #f89406;
-}
-
-.btn-warning.zeroclipboard-is-active {
-  background-color: #c67605 \9;
 }
 
 .btn-warning.zeroclipboard-is-hover,
-.btn-warning.zeroclipboard-is-active {
-  color: #fff;
-  background-color: #f89406;
-}
-
-.btn-warning.zeroclipboard-is-hover, .btn-warning.zeroclipboard-is-focus {
+.btn-warning.zeroclipboard-is-focus {
   text-decoration: none;
   background-position: 0 -15px;
   -webkit-transition: background-position .1s linear;
@@ -136,6 +131,39 @@ img.lgtm_img {
 }
 
 .btn-warning.zeroclipboard-is-active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* btn-success */
+
+.btn-success.zeroclipboard-is-hover,
+.btn-success.zeroclipboard-is-focus,
+.btn-success.zeroclipboard-is-active {
+  color: #fff;
+  background-color: #51a351;
+}
+
+.btn-success.zeroclipboard-is-hover,
+.btn-success.zeroclipboard-is-focus {
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position .1s linear;
+  -moz-transition: background-position .1s linear;
+  -o-transition: background-position .1s linear;
+  transition: background-position .1s linear;
+}
+
+.btn-success.zeroclipboard-is-focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn-success.zeroclipboard-is-active {
   background-image: none;
   outline: 0;
   -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);

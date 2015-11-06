@@ -1,6 +1,10 @@
 import {Image} from './util/image';
 
 $(function() {
+  // measure of Safari and IE cache
+  $.ajaxSetup({
+    cache: false
+  });
 
   // initialize load
   Image.renderLGTM();

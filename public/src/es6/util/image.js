@@ -18,9 +18,7 @@ export class Image {
   // load or reload images
   static loadLgtmImages () {
     $(".lgtm_img").each((i, obj) => {
-      // measure of Safari cache
-      let randomSeed = Math.floor(Math.random() * 1000);
-      $.getJSON("http://www.lgtm.in/g", {time: randomSeed}, (data) => {
+      $.getJSON("http://www.lgtm.in/g", (data) => {
         this.image_data[i] = {url: data.imageUrl, clip_board: '![LGTM](' + data.imageUrl + ')'};
         this.component_random.setState({data: this.image_data});
       });

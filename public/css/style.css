@@ -100,6 +100,10 @@ img.lgtm_img {
   clear: both;
 }
 
+.recommend_img_box:first-child {
+  padding-left: 10px;
+}
+
 #lgtm_site_text {
   float: right;
 }

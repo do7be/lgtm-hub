@@ -74,7 +74,7 @@ var RecommendList = React.createClass({
     var recommend = this.state.data.map(function (img) {
       return React.createElement(
         "div",
-        { className: "text-center" },
+        { className: "recommend_img_box_area text-center" },
         React.createElement(Recommend, { url: img.url, clip_board: img.clip_board })
       );
     });

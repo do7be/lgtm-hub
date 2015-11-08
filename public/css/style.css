@@ -100,7 +100,7 @@ img.lgtm_img {
   clear: both;
 }
 
-.recommend_img_box:first-child {
+.recommend_img_box_area:first-of-type {
   padding-left: 10px;
 }
 

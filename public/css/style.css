@@ -49,6 +49,11 @@ a {
   width: 200px;
 }
 
+#explain {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
 #img_area {
   border: 1px solid #ddd;
   border-radius: 4px;

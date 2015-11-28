@@ -9,9 +9,9 @@ export var RandomList = React.createClass({
     };
   },
   render: function () {
-    var images = this.state.data.map((img) => {
+    var images = this.state.data.map((img, index) => {
       return (
-        <div className = "text-center">
+        <div key={index} className = "text-center">
           <Random url={img.url} clip_board={img.clip_board}/>
         </div>
       );
@@ -56,9 +56,9 @@ export var RecommendList = React.createClass({
     };
   },
   render: function () {
-    var recommend = this.state.data.map((img) => {
+    var recommend = this.state.data.map((img, index) => {
       return (
-        <div className = "recommend_img_box_area text-center">
+        <div key={index} className = "recommend_img_box_area text-center">
           <Recommend url={img.url} clip_board={img.clip_board}/>
         </div>
       );

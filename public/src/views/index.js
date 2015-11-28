@@ -16,10 +16,10 @@ var RandomList = React.createClass({
     };
   },
   render: function render() {
-    var images = this.state.data.map(function (img) {
+    var images = this.state.data.map(function (img, index) {
       return React.createElement(
         "div",
-        { className: "text-center" },
+        { key: index, className: "text-center" },
         React.createElement(Random, { url: img.url, clip_board: img.clip_board })
       );
     });
@@ -71,10 +71,10 @@ var RecommendList = React.createClass({
     };
   },
   render: function render() {
-    var recommend = this.state.data.map(function (img) {
+    var recommend = this.state.data.map(function (img, index) {
       return React.createElement(
         "div",
-        { className: "recommend_img_box_area text-center" },
+        { key: index, className: "recommend_img_box_area text-center" },
         React.createElement(Recommend, { url: img.url, clip_board: img.clip_board })
       );
     });

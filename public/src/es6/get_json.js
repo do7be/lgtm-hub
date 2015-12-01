@@ -5,10 +5,12 @@ $(function() {
   // click reload button
   $('[data-action=reload]').on('click', function() {
 
+    let $reload_area = $('#reload_area');
+
     // show tooltip
-    $(this).tooltip('show');
+    $($reload_area).tooltip('show');
     setTimeout(() => {
-      $(this).tooltip('destroy');
+      $($reload_area).tooltip('destroy');
     }, 1000);
 
     // disable reload button for 1000ms

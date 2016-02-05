@@ -6,7 +6,7 @@ var app = express();
 var server = require('http').createServer(app);
 
 // server configure
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 

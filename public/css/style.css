@@ -41,6 +41,13 @@ a {
   background-color: #FFFFFF;
 }
 
+.title {
+  letter-spacing: 5px;
+}
+.history {
+  letter-spacing: 2px;
+}
+
 #reload_area {
   margin-bottom: 10px;
 }

@@ -30,7 +30,7 @@ html
               !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
           div(class="clear_both")
           div(class="text-center")
-            h1= title
+            h1(class="title")= title
             p Copy your clipboard in the form of markdown.
               span(id="explain") ![LGTM](http://***)
           section(id="reload_area" class="text-center" data-toggle="tooltip" data-placement="bottom" title="Reloading...")

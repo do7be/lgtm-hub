@@ -3,6 +3,11 @@ html
   head
     meta(charset='utf-8')
     meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="description" content="get LGTM images from lgtm.in")
+    meta(property="og:title" content="LGTM-HUB")
+    meta(property="og:type" content="website")
+    meta(property="og:url" content="http://lgtm-hub.do7be.com/")
+    meta(property="og:image" content="http://i.imgur.com/4gU76Y6.jpg")
     title= title
     link(rel="shortcut icon", href="/img/favicon.ico")
     link(rel='stylesheet', href='/css/bootstrap.min.css')
@@ -25,7 +30,7 @@ html
               !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
           div(class="clear_both")
           div(class="text-center")
-            h1= title
+            h1(class="title")= title
             p Copy your clipboard in the form of markdown.
               span(id="explain") ![LGTM](http://***)
           section(id="reload_area" class="text-center" data-toggle="tooltip" data-placement="bottom" title="Reloading...")
@@ -35,4 +40,3 @@ html
           section(id="recommend_img_area")
           section(id="lgtm_site_text")
             p get images by <a href="http://www.lgtm.in/">http://www.lgtm.in/</a>
-

@@ -82,9 +82,9 @@ var RecommendList = React.createClass({
       "div",
       null,
       React.createElement(
-        "h1",
-        { className: "text-center" },
-        "Other People Recommend"
+        "h2",
+        { className: "text-center history" },
+        "Everyone's history"
       ),
       recommend
     );

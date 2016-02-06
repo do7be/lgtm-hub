@@ -65,7 +65,7 @@ export var RecommendList = React.createClass({
     });
     return (
       <div>
-        <h1 className = "text-center">Other People Recommend</h1>
+        <h2 className = "text-center history">Everyone's history</h2>
         {recommend}
       </div>
     );

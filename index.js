@@ -4,6 +4,7 @@ var express = require('express');
 var sanitize = require('validator');
 var app = express();
 var server = require('http').createServer(app);
+var request = require('request');
 
 // server configure
 app.set('port', process.env.PORT || 5000);
@@ -54,7 +55,35 @@ io.on('connection', function (socket) {
       socket.broadcast.emit('add recommend', img);
     }
   });
+
+  // init load or click reload button
+  socket.on('load random', function (data) {
+    // call 3 times with async
+    var tasks = [getJsonLgtmin(), getJsonLgtmin(), getJsonLgtmin()];
+    Promise.all(tasks).then(function (results) {
+      socket.emit('loaded random', results);
+    });
+  });
 });
+
+// request for get images to lgtm.in
+function getJsonLgtmin() {
+  return new Promise(function (resolve) {
+    request({
+      method: 'GET',
+      uri: 'http://www.lgtm.in/g',
+      gzip: true,
+      headers: {
+        "accept": "application/json, */*",
+        "accept-encoding": "gzip, deflate",
+        "user-agent": "runscope/0.1",
+        "connection": "keep-alive"
+      }
+    }, function (error, response, body) {
+      resolve(JSON.parse(body));
+    });
+  });
+}
 
 // sanitizing
 function checkDataImg(img) {

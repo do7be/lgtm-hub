@@ -5,7 +5,6 @@ let React    = require('react'),
 // Util Functions for Image
 export class Image {
 
-
   // init Random Images
   static renderLGTM () {
     this.image_data = [{url: '', clip_board: ''}, {url: '', clip_board: ''}, {url: '', clip_board: ''}];
@@ -19,12 +18,16 @@ export class Image {
 
   // load or reload images
   static loadLgtmImages () {
-    $(".lgtm_img").each((i, obj) => {
-      $.getJSON("http://www.lgtm.in/g", (data) => {
-        this.image_data[i] = {url: data.imageUrl, clip_board: '![LGTM](' + data.imageUrl + ')'};
-        this.component_random.setState({data: this.image_data});
-      });
+    io().emit("load random");
+  }
+
+  // render random lgtm images
+  static renderLgtmImages (data) {
+    let image_data = [];
+    data.forEach(function (obj) {
+      image_data.push({url: obj.imageUrl, clip_board: '![LGTM](' + obj.imageUrl + ')'});
     });
+    this.component_random.setState({data: image_data});
   }
 
   // add other people recommend

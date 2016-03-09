@@ -23,5 +23,9 @@ $(function() {
       Image.setHandler(i, obj);
     });
   });
-});
 
+  // loaded random images to init or click reload button
+  socket.on('loaded random', (data) => {
+    Image.renderLgtmImages(data);
+  });
+});

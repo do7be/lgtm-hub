@@ -8,7 +8,6 @@ $(function() {
 
   // initialize load
   Image.renderLGTM();
-  Image.loadLgtmImages();
 
   // initialize tooltip
   $('button').tooltip('destroy');

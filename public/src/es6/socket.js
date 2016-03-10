@@ -7,6 +7,7 @@ let Index = require('../views/index.js');
 $(function() {
 
   let socket = io();
+  Image.loadLgtmImages(socket);
 
   // load recommend images to display bottom at initialize
   socket.on('load recommend', (data) => {
@@ -27,5 +28,25 @@ $(function() {
   // loaded random images to init or click reload button
   socket.on('loaded random', (data) => {
     Image.renderLgtmImages(data);
+  });
+
+  // click reload button
+  $('[data-action=reload]').on('click', function() {
+
+    let $reload_area = $('#reload_area');
+
+    // show tooltip
+    $($reload_area).tooltip('show');
+    setTimeout(() => {
+      $($reload_area).tooltip('destroy');
+    }, 1000);
+
+    // disable reload button for 1000ms
+    $(this).prop("disabled", true);
+    setTimeout(() => {
+      $(this).prop("disabled", false);
+    }, 1000);
+
+    Image.loadLgtmImages(socket);
   });
 });

@@ -17,8 +17,8 @@ export class Image {
   }
 
   // load or reload images
-  static loadLgtmImages () {
-    io().emit("load random");
+  static loadLgtmImages (socket) {
+    socket.emit("load random");
   }
 
   // render random lgtm images

@@ -1,10 +1,10 @@
 const express = require('express');
 const sanitize = require('validator');
-const app = express();
-const server = require('http').createServer(app);
 const request = require ('request');
 const compression = require('compression')
 const socket_io = require('socket.io');
+let server = require('http').createServer(app);
+let app = express();
 
 // server configure
 app.set('port', (process.env.PORT || 5000));

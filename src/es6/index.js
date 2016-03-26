@@ -3,7 +3,6 @@ const sanitize = require('validator');
 const request = require ('request');
 const compression = require('compression')
 const socket_io = require('socket.io');
-let server = require('http').createServer(app);
 let app = express();
 
 // server configure
@@ -16,10 +15,11 @@ let maxTime = 86400000 * 30;
 app.use(compression({level: 6}));
 app.use(express.static(__dirname + '/public', { maxAge: maxTime }));
 
-const env = process.env.NODE_ENV || 'development';
+let env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
 }
 
+let server = require('http').createServer(app);
 // server listen
 server.listen(app.get('port'), function () {
   console.log('Server listening at port %d', app.get('port'));

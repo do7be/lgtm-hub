@@ -2,16 +2,21 @@
 
 var express = require('express');
 var sanitize = require('validator');
+var request = require('request');
+var compression = require('compression');
+var socket_io = require('socket.io');
 var app = express();
 var server = require('http').createServer(app);
-var request = require('request');
 
 // server configure
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 
-app.use(express['static'](__dirname + '/public'));
+// cache in 30days
+var maxTime = 86400000 * 30;
+app.use(compression({ level: 6 }));
+app.use(express['static'](__dirname + '/public', { maxAge: maxTime }));
 
 var env = process.env.NODE_ENV || 'development';
 if ('development' == env) {}
@@ -27,7 +32,6 @@ app.get('/', function (request, response) {
 });
 
 // Socket.io
-var socket_io = require('socket.io');
 var io = socket_io.listen(server);
 
 var recommend = new Array();

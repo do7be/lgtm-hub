@@ -4,6 +4,7 @@ const request = require ('request');
 const compression = require('compression')
 const socket_io = require('socket.io');
 let app = express();
+let server = require('http').createServer(app);
 
 // server configure
 app.set('port', (process.env.PORT || 5000));
@@ -19,7 +20,6 @@ let env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
 }
 
-let server = require('http').createServer(app);
 // server listen
 server.listen(app.get('port'), function () {
   console.log('Server listening at port %d', app.get('port'));

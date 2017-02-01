@@ -4,6 +4,8 @@
   "description": "Get and recommend a picture of \"LGTM\" for GitHub.",
   "main": "index.js",
   "scripts": {
+    "build": "gulp js",
+    "watch": "gulp watch",
     "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

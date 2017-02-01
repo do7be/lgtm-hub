@@ -81,6 +81,7 @@ function getJsonLgtmin() {
         method: 'GET',
         uri: 'http://www.lgtm.in/g',
         gzip: true,
+        rejectUnauthorized: false,
         headers: {
           "accept": "application/json, */*",
           "accept-encoding": "gzip, deflate",

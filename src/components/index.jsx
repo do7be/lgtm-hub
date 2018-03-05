@@ -48,9 +48,9 @@ class Random extends React.Component {
         <div className="img_box">
           <img className="lgtm_img" src={this.props.url}/>
         </div>
-        <buttton type='button' onClick={this._onCopy} data-clipboard-text={this.props.clip_board} className="lgtm_img_copy btn btn-warning btn-large" data-toggle="tooltip" data-placement="bottom" data-original-title="Copied">
+        <button type='button' onClick={this._onCopy} data-clipboard-text={this.props.clip_board} className="lgtm_img_copy btn btn-warning btn-large" data-toggle="tooltip" data-placement="bottom" data-original-title="Copied">
           Copy
-        </buttton>
+        </button>
       </div>
     )
   }
@@ -108,9 +108,9 @@ class Recommend extends React.Component {
         <div className="recommend_img_box">
           <img src={this.props.url}/>
         </div>
-        <buttton type='button' onClick={this._onCopy} data-clipboard-text={this.props.clip_board} className="recommend_lgtm_img_copy btn btn-success btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">
+        <button type='button' onClick={this._onCopy} data-clipboard-text={this.props.clip_board} className="recommend_lgtm_img_copy btn btn-success btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">
           Copy
-        </buttton>
+        </button>
       </div>
     )
   }

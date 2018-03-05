@@ -4,12 +4,12 @@ const webpack = require('webpack')
 module.exports = {
   mode: 'production',
   entry: {
-    'client': [
+    'index': [
       path.resolve(__dirname, 'src/index.js')
     ]
   },
   output: {
-    filename: '[name].min.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public/js'),
     publicPath: '/',
   },

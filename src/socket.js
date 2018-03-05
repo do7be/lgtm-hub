@@ -1,7 +1,6 @@
 import {Image} from './components/image'
 
 import React from 'react'
-import Index from './components/index.jsx'
 
 // socket.io emit and bind
 function setup () {

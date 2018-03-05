@@ -1,7 +1,7 @@
 {
-  "name": "hub_lgtm",
+  "name": "lgtm-hub",
   "version": "1.0.0",
-  "description": "Get and recommend a picture of \"LGTM\" for GitHub.",
+  "description": "Get and recommend a picture of \"LGTM\" for Markdown.",
   "main": "index.js",
   "scripts": {
     "build": "gulp js",
@@ -9,19 +9,10 @@
     "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nagaic/hub_lgtm.git"
-  },
-  "keywords": [
-    "lgtm"
-  ],
+  "repository": "git@github.com:do7be/lgtm-hub.git",
   "author": "nagaic",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nagaic/hub_lgtm/issues"
-  },
-  "homepage": "https://github.com/nagaic/hub_lgtm",
+  "license": "MIT",
+  "homepage": "https://github.com/do7be/lgtm-hub",
   "engines": {
     "node": "0.10.x"
   },

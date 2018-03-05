@@ -1,6 +1,6 @@
-let React    = require('react'),
-    ReactDOM = require('react-dom'),
-    Index    = require('../../views/index.js');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Index from '../../views/es6/index.jsx'
 
 // Util Functions for Image
 export class Image {

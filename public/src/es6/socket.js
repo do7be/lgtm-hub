@@ -1,11 +1,10 @@
 import {Image} from './util/image';
 
 let React = require('react');
-let Index = require('../views/index.js');
+let Index = require('../views/es6/index.jsx');
 
 // socket.io emit and bind
-$(function() {
-
+function setup () {
   let socket = io();
   Image.loadLgtmImages(socket);
 
@@ -49,4 +48,5 @@ $(function() {
 
     Image.loadLgtmImages(socket);
   });
-});
+}
+export default setup

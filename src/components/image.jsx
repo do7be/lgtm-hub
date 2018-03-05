@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Index from '../../views/es6/index.jsx'
+import Index from './index.jsx'
 
 // Util Functions for Image
 export class Image {

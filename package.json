@@ -2,11 +2,11 @@
   "name": "lgtm-hub",
   "version": "1.0.0",
   "description": "Get and recommend a picture of \"LGTM\" for Markdown.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "build": "gulp js",
-    "watch": "gulp watch",
-    "start": "node index",
+    "build": "webpack",
+    "watch": "webpack -w",
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "git@github.com:do7be/lgtm-hub.git",

@@ -43,14 +43,12 @@ export class Image {
   // set handler to button for copy text on clipboard
   static setHandler (i, obj) {
     // copy github form url to clipboard
-    let client = new ZeroClipboard(obj);
-    client.on("ready", function(readyEvent) {
-      client.on("aftercopy", function(event) {
-        $(obj).tooltip('show');
-        setTimeout(() => {
-          $(obj).tooltip('destroy');
-        }, 1000);
-      });
+    const client = new ClipboardJS(obj);
+    client.on("success", function(event) {
+      $(obj).tooltip('show');
+      setTimeout(() => {
+        $(obj).tooltip('destroy');
+      }, 1000);
     });
   };
 }

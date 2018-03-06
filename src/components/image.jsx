@@ -1,6 +1,6 @@
-let React    = require('react'),
-    ReactDOM = require('react-dom'),
-    Index    = require('../../views/index.js');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { RandomList, RecommendList } from './index.jsx'
 
 // Util Functions for Image
 export class Image {
@@ -8,12 +8,12 @@ export class Image {
   // init Random Images
   static renderLGTM () {
     this.image_data = [{url: '', clip_board: ''}, {url: '', clip_board: ''}, {url: '', clip_board: ''}];
-    this.component_random = ReactDOM.render(<Index.RandomList data={this.image_data}/>, document.getElementById("img_area"));
+    this.component_random = ReactDOM.render(<RandomList data={this.image_data}/>, document.getElementById("img_area"));
   }
 
   // init Recommend Images
   static renderRecommend (data) {
-    this.component_recommend = ReactDOM.render(<Index.RecommendList data={data} />, document.getElementById("recommend_img_area"));
+    this.component_recommend = ReactDOM.render(<RecommendList data={data} />, document.getElementById("recommend_img_area"));
   }
 
   // load or reload images

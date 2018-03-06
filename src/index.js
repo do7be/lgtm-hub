@@ -1,4 +1,6 @@
-import {Image} from './util/image';
+import {Image} from './components/image'
+
+import socket from './socket'
 
 $(function() {
   // measure of Safari and IE cache
@@ -16,4 +18,6 @@ $(function() {
   $(".lgtm_img_copy").each((i, obj) => {
     Image.setHandler(i, obj);
   });
+
+  socket()
 });

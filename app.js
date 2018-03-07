@@ -11,10 +11,8 @@ app.set('port', (process.env.PORT || 5000));
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 
-// cache in 30days
-let maxTime = 86400000 * 30;
 app.use(compression({level: 6}));
-app.use(express.static(__dirname + '/public', { maxAge: maxTime }));
+app.use(express.static(__dirname + '/public'));
 
 let env = process.env.NODE_ENV || 'development';
 if ('development' == env) {

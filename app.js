@@ -39,7 +39,6 @@ io.on('connection', function (socket) {
 
   // recommend image to other people when user select image
   socket.on('select image', function (data) {
-
     let img_url = data.img;
 
     if (checkDataImg(img_url)) {
@@ -53,7 +52,7 @@ io.on('connection', function (socket) {
       }
 
       // recommend image to other people
-      socket.broadcast.emit('add recommend', img);
+      io.sockets.emit('add recommend', img);
     }
   });
 

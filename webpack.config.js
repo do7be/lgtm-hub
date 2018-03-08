@@ -2,10 +2,11 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
+  // modeをわたすようにしたい
   mode: 'production',
   entry: {
     'index': [
-      path.resolve(__dirname, 'src/index.js')
+      path.resolve(__dirname, 'src/index.jsx')
     ]
   },
   output: {
@@ -20,6 +21,10 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader'],
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

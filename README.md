@@ -10,11 +10,6 @@ Click copy button then copy markdown text to your clip board.
 ## Get Start
 
 ```
-$ npm install
-$ gulp
+$ yarn
+$ yarn run build
 ```
-
-## development setting
-
-* LiveReload
-    * https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei/related

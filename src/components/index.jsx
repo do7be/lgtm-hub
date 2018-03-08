@@ -1,5 +1,4 @@
 import React from 'react'
-import { setHandler } from '../clipboard'
 let socket = io()
 
 export class ReloadButton extends React.Component {
@@ -85,6 +84,7 @@ class Random extends React.Component {
   constructor (props) {
     super(props)
     this.onClickCopy = this.onClickCopy.bind(this)
+    this.saveRef = this.saveRef.bind(this)
   }
 
   render () {
@@ -110,11 +110,22 @@ class Random extends React.Component {
   }
 
   saveRef (ref) {
-    setHandler(ref)
+    this.ref = ref
   }
 
   onClickCopy () {
     this.props.handleClickCopy(this.props.url)
+    if (this.ref === null) {
+      return
+    }
+
+    const client = new ClipboardJS(this.ref)
+    client.on('success', event => {
+      $(this.ref).tooltip('show')
+      setTimeout(() => {
+        $(this.ref).tooltip('destroy')
+      }, 1000)
+    })
   }
 }
 
@@ -152,6 +163,7 @@ class Recommend extends React.Component {
   constructor (props) {
     super(props)
     this.onClickCopy = this.onClickCopy.bind(this)
+    this.saveRef = this.saveRef.bind(this)
   }
 
   render () {
@@ -177,11 +189,18 @@ class Recommend extends React.Component {
   }
 
   saveRef (ref) {
-    setHandler(ref)
+    this.ref = ref
   }
 
   onClickCopy () {
     this.props.handleClickCopy(this.props.url)
+    const client = new ClipboardJS(this.ref)
+    client.on('success', event => {
+      $(this.ref).tooltip('show')
+      setTimeout(() => {
+        $(this.ref).tooltip('destroy')
+      }, 1000)
+    })
   }
 }
 

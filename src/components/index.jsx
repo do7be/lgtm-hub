@@ -1,50 +1,50 @@
 import React from 'react'
+import { Tooltip } from 'react-tippy'
+
 let socket = io()
 
 export class ReloadButton extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { busy: false }
+    this.state = { busy: false, openTooltip: false }
     this.saveRef = this.saveRef.bind(this)
     this.onClickReload = this.onClickReload.bind(this)
   }
 
   componentDidUpdate (newProps) {
     if (this.props !== newProps) {
-      this.setState({ busy: false })
+      this.setState({ busy: false, openTooltip: false })
     }
   }
 
   render () {
     return (
-      <section
-        id='reload_area'
-        className='text-center'
-      >
-        <button
-          type='button'
-          id='reload_button'
-          className='btn btn-primary btn-large'
-          onClick={this.onClickReload}
-          ref={this.saveRef}
-          disabled={this.state.busy}
-          data-toggle='tooltip'
-          data-placement='bottom'
+      <section className='reload_area text-center'>
+        <Tooltip
           title='Reloading...'
+          position='bottom'
+          trigger='manual'
+          open={this.state.openTooltip}
+          hideDelay={100}
+          arrow
         >
-          Reload
-        </button>
+          <button
+            type='button'
+            className='reload_button btn btn-primary btn-large'
+            onClick={this.onClickReload}
+            ref={this.saveRef}
+            disabled={this.state.busy}
+          >
+            Reload
+          </button>
+        </Tooltip>
       </section>
     )
   }
 
   onClickReload () {
-    this.setState({ busy: true }, () => {
+    this.setState({ busy: true, openTooltip: true }, () => {
       this.props.handleClickReload()
-      $(this.ref).tooltip('show')
-      setTimeout(() => {
-        $(this.ref).tooltip('destroy')
-      }, 1000)
     })
   }
 
@@ -61,7 +61,7 @@ export class RandomList extends React.Component {
 
   render () {
     return (
-      <div id='img_area'>
+      <div className='img_area'>
         {this.props.data.map(img => (
           <div
             key={img.url}
@@ -83,8 +83,9 @@ RandomList.defaultProps = {
 class Random extends React.Component {
   constructor (props) {
     super(props)
+    this.state = { openTooltip: false }
     this.onClickCopy = this.onClickCopy.bind(this)
-    this.saveRef = this.saveRef.bind(this)
+    this.refToClipBoard = this.refToClipBoard.bind(this)
   }
 
   render () {
@@ -93,37 +94,42 @@ class Random extends React.Component {
         <div className="img_box">
           <img className="lgtm_img" src={this.props.url}/>
         </div>
-        <button
-          type='button'
-          onClick={this.onClickCopy}
-          data-clipboard-text={this.props.clip_board}
-          className="lgtm_img_copy btn btn-warning btn-large"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          data-original-title="Copied"
-          ref={this.saveRef}
+        {/* buttonはコンポーネント化したい */}
+        <Tooltip
+          title='Copied'
+          position='bottom'
+          trigger='manual'
+          open={this.state.openTooltip}
+          hideDelay={100}
+          arrow
         >
-          Copy
-        </button>
+          <button
+            type='button'
+            onClick={this.onClickCopy}
+            data-clipboard-text={this.props.clip_board}
+            className="lgtm_img_copy btn btn-warning btn-large"
+            ref={this.refToClipBoard}
+          >
+            Copy
+          </button>
+        </Tooltip>
       </div>
     )
   }
 
-  saveRef (ref) {
-    this.ref = ref
+  refToClipBoard (ref) {
+    if (ref === null) { return }
+
+    const client = new ClipboardJS(ref)
+    client.on('success', event => { /* noop */ })
   }
 
   onClickCopy () {
     this.props.handleClickCopy(this.props.url)
-    if (this.ref === null) {
-      return
-    }
 
-    const client = new ClipboardJS(this.ref)
-    client.on('success', event => {
-      $(this.ref).tooltip('show')
+    this.setState({ openTooltip: true }, () => {
       setTimeout(() => {
-        $(this.ref).tooltip('destroy')
+        this.setState({ openTooltip: false })
       }, 1000)
     })
   }
@@ -142,8 +148,8 @@ export class RecommendList extends React.Component {
 
   render () {
     return (
-      <div id='recommend_img_area'>
-        <h2 className="text-center history">Everyone's history</h2>
+      <div className='recommend_img_area'>
+        <h2 className='text-center history'>Everyone's history</h2>
         {this.props.data.map(img => (
           <div key={img.url} className='recommend_img_box_area text-center'>
             <Recommend url={img.url} clip_board={img.clip_board} handleClickCopy={this.props.handleClickCopy}/>
@@ -162,8 +168,9 @@ RecommendList.defaultProps = {
 class Recommend extends React.Component {
   constructor (props) {
     super(props)
+    this.state = { openTooltip: false }
     this.onClickCopy = this.onClickCopy.bind(this)
-    this.saveRef = this.saveRef.bind(this)
+    this.refToClipBoard = this.refToClipBoard.bind(this)
   }
 
   render () {
@@ -172,33 +179,44 @@ class Recommend extends React.Component {
         <div className='recommend_img_box'>
           <img src={this.props.url}/>
         </div>
-        <button
-          type='button'
-          onClick={this.onClickCopy}
-          data-clipboard-text={this.props.clip_board}
-          className='recommend_lgtm_img_copy btn btn-success btn-small'
-          data-toggle='tooltip'
-          data-placement='bottom'
+        <Tooltip
           title='Copied'
-          ref={this.saveRef}
+          position='bottom'
+          trigger='manual'
+          open={this.state.openTooltip}
+          hideDelay={100}
+          arrow
         >
-          Copy
-        </button>
+          <button
+            type='button'
+            onClick={this.onClickCopy}
+            data-clipboard-text={this.props.clip_board}
+            className='recommend_lgtm_img_copy btn btn-success btn-small'
+            data-toggle='tooltip'
+            data-placement='bottom'
+            title='Copied'
+            ref={this.refToClipBoard}
+          >
+            Copy
+          </button>
+        </Tooltip>
       </div>
     )
   }
 
-  saveRef (ref) {
-    this.ref = ref
+  refToClipBoard (ref) {
+    if (ref === null) { return }
+
+    const client = new ClipboardJS(ref)
+    client.on('success', event => { /* noop */ })
   }
 
   onClickCopy () {
     this.props.handleClickCopy(this.props.url)
-    const client = new ClipboardJS(this.ref)
-    client.on('success', event => {
-      $(this.ref).tooltip('show')
+
+    this.setState({ openTooltip: true }, () => {
       setTimeout(() => {
-        $(this.ref).tooltip('destroy')
+        this.setState({ openTooltip: false })
       }, 1000)
     })
   }

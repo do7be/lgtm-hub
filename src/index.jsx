@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 
 import { RandomList, RecommendList, ReloadButton } from './components/index.jsx'
 
+import 'react-tippy/dist/tippy.css'
+
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -16,9 +18,6 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    // initialize tooltip
-    $('button').tooltip('destroy');
-
     this.reloadRandomImages()
 
     this.socket.on('load recommend', (data) => {

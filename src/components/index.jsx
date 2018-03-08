@@ -1,27 +1,56 @@
 import React from 'react'
+import { setHandler } from '../clipboard'
 let socket = io()
 
 export class ReloadButton extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { busy: false }
+    this.saveRef = this.saveRef.bind(this)
+    this.onClickReload = this.onClickReload.bind(this)
+  }
+
+  componentDidUpdate (newProps) {
+    if (this.props !== newProps) {
+      this.setState({ busy: false })
+    }
+  }
+
   render () {
     return (
       <section
         id='reload_area'
         className='text-center'
-        data-toggle='tooltip'
-        data-placement='bottom'
-        title='Reloading...'
       >
         <button
           type='button'
           id='reload_button'
           className='btn btn-primary btn-large'
-          data-action='reload'
-          onClick={this.props.handleClickReload}
+          onClick={this.onClickReload}
+          ref={this.saveRef}
+          disabled={this.state.busy}
+          data-toggle='tooltip'
+          data-placement='bottom'
+          title='Reloading...'
         >
           Reload
         </button>
       </section>
     )
+  }
+
+  onClickReload () {
+    this.setState({ busy: true }, () => {
+      this.props.handleClickReload()
+      $(this.ref).tooltip('show')
+      setTimeout(() => {
+        $(this.ref).tooltip('destroy')
+      }, 1000)
+    })
+  }
+
+  saveRef (ref) {
+    this.ref = ref
   }
 }
 
@@ -55,7 +84,6 @@ RandomList.defaultProps = {
 class Random extends React.Component {
   constructor (props) {
     super(props)
-    this.saveRef = this.saveRef.bind(this)
     this.onClickCopy = this.onClickCopy.bind(this)
   }
 
@@ -82,11 +110,11 @@ class Random extends React.Component {
   }
 
   saveRef (ref) {
-    this.ref = ref
+    setHandler(ref)
   }
 
   onClickCopy () {
-    this.props.handleClickCopy(this.props.url, this.ref)
+    this.props.handleClickCopy(this.props.url)
   }
 }
 
@@ -123,7 +151,6 @@ RecommendList.defaultProps = {
 class Recommend extends React.Component {
   constructor (props) {
     super(props)
-    this.saveRef = this.saveRef.bind(this)
     this.onClickCopy = this.onClickCopy.bind(this)
   }
 
@@ -150,11 +177,11 @@ class Recommend extends React.Component {
   }
 
   saveRef (ref) {
-    this.ref = ref
+    setHandler(ref)
   }
 
   onClickCopy () {
-    this.props.handleClickCopy(this.props.url, this.ref)
+    this.props.handleClickCopy(this.props.url)
   }
 }
 

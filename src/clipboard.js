@@ -1,5 +1,9 @@
 // Util Functions for Image
-export function copyClipboard (obj) {
+export function setHandler (obj) {
+  if (obj === null) {
+    return
+  }
+
   // copy github form url to clipboard
   const client = new ClipboardJS(obj)
   client.on('success', event => {

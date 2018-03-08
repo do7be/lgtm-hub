@@ -1,10 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { copyClipboard } from './clipboard'
 import { RandomList, RecommendList, ReloadButton } from './components/index.jsx'
-
-import tooltip from './tooltip'
 
 $(function() {
   // measure of Safari and IE cache
@@ -12,12 +9,8 @@ $(function() {
     cache: false
   });
 
-  // initialize tooltip
-  $('button').tooltip('destroy');
-
-  tooltip()
-
   ReactDOM.render(<App/>, document.getElementById('app'))
+
 })
 
 class App extends React.Component {
@@ -33,6 +26,9 @@ class App extends React.Component {
   }
 
   componentDidMount () {
+    // initialize tooltip
+    $('button').tooltip('destroy');
+
     this.reloadRandomImages()
 
     this.socket.on('load recommend', (data) => {
@@ -76,8 +72,7 @@ class App extends React.Component {
     this.socket.emit('load random')
   }
 
-  handleClickCopy (url, ref) {
+  handleClickCopy (url) {
     this.socket.emit('select image', { img: url })
-    copyClipboard(ref)
   }
 }

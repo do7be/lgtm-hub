@@ -11,9 +11,25 @@ a {
   color: #00B7FF;
 }
 
-#tweet_button {
+.tweet_button {
   float: right;
   margin-top: 10px;
+}
+
+.twitter-share-button {
+  height: 20px;
+  padding: 1px 10px 1px 10px;
+  background-color: #1b95e0;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.2s background-color;
+}
+
+.twitter-share-button:hover {
+  background-color:  #37a6eb;
+  text-decoration: none;
+  color: #fff;
 }
 
 .clear_both {

@@ -1,3 +1,4 @@
+import qs from 'qs'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -48,11 +49,40 @@ class App extends React.Component {
   render () {
     const { randomImages, recommendImages } = this.state
     return (
-      <div>
-        <ReloadButton handleClickReload={this.reloadRandomImages}/>
-        <RandomList data={randomImages} handleClickCopy={this.handleClickCopy}/>
-        <RecommendList data={recommendImages} handleClickCopy={this.handleClickCopy}/>
-      </div>
+      <section className='window'>
+        <section className='container'>
+          <section className='contents'>
+            <div className='tweet_button'>
+              <a
+                className='twitter-share-button'
+                target='_blank'
+                href={`https://twitter.com/intent/tweet?${qs.stringify({
+                  text: `LGTM-HUB ${location.href}`
+                })}`}
+              >
+                Tweet
+              </a>
+            </div>
+            <div className='clear_both'></div>
+            <div className='text-center'>
+              <h1 className='title'>LGTM-HUB</h1>
+              <p>
+                Copy your clipboard in the form of markdown.
+                <span className='explain'>![LGTM](http://***)</span>
+              </p>
+              <ReloadButton handleClickReload={this.reloadRandomImages}/>
+              <RandomList data={randomImages} handleClickCopy={this.handleClickCopy}/>
+              <RecommendList data={recommendImages} handleClickCopy={this.handleClickCopy}/>
+
+            </div>
+            <section className='lgtm_site_text'>
+              <p>
+                get images by <a href='http://www.lgtm.in/'>http://www.lgtm.in/</a>
+              </p>
+            </section>
+          </section>
+        </section>
+      </section>
     )
   }
 

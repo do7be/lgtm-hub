@@ -5,32 +5,18 @@ import React from 'react'
 // socket.io emit and bind
 function setup () {
   let socket = io();
-  Image.loadLgtmImages(socket);
 
   // load recommend images to display bottom at initialize
-  socket.on('load recommend', (data) => {
-    Image.renderRecommend(data);
-    $(".recommend_lgtm_img_copy").each((i, obj) => {
-      Image.setHandler(i, obj);
-    });
+  $(".recommend_lgtm_img_copy").each((i, obj) => {
+    Image.setHandler(i, obj);
   });
 
-  // load recommend images to display bottom at other people copy
-  socket.on('add recommend', function (data) {
-    Image.addRecommendImage(data);
-    $(".recommend_lgtm_img_copy").each((i, obj) => {
-      Image.setHandler(i, obj);
-    });
-  });
-
-  // loaded random images to init or click reload button
-  socket.on('loaded random', (data) => {
-    Image.renderLgtmImages(data);
-  });
+  $(".recommend_lgtm_img_copy").each((i, obj) => {
+    Image.setHandler(i, obj)
+  })
 
   // click reload button
   $('[data-action=reload]').on('click', function() {
-
     let $reload_area = $('#reload_area');
 
     // show tooltip
@@ -43,9 +29,7 @@ function setup () {
     $(this).prop("disabled", true);
     setTimeout(() => {
       $(this).prop("disabled", false);
-    }, 1000);
-
-    Image.loadLgtmImages(socket);
-  });
+    }, 1000)
+  })
 }
 export default setup

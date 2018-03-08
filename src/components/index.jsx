@@ -1,27 +1,47 @@
 import React from 'react'
 let socket = io()
 
+export class ReloadButton extends React.Component {
+  render () {
+    return (
+      <section
+        id='reload_area'
+        className='text-center'
+        data-toggle='tooltip'
+        data-placement='bottom'
+        title='Reloading...'
+      >
+        <button
+          type='button'
+          id='reload_button'
+          className='btn btn-primary btn-large'
+          data-action='reload'
+          onClick={this.props.handleClickReload}
+        >
+          Reload
+        </button>
+      </section>
+    )
+  }
+}
+
 // Random LGTM Images
 export class RandomList extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      data: props.data,
-    }
   }
 
   render () {
-    const images = this.state.data.map((img, index) => {
-      return (
-        <div key={index} className="text-center">
-          <Random url={img.url} clip_board={img.clip_board}/>
-        </div>
-      )
-    })
-
     return (
-      <div>
-        {images}
+      <div id='img_area'>
+        {this.props.data.map(img => (
+          <div
+            key={img.url}
+            className='text-center'
+          >
+            <Random url={img.url} clip_board={img.clip_board} handleClickCopy={this.props.handleClickCopy}/>
+          </div>
+        ))}
       </div>
     )
   }
@@ -35,24 +55,32 @@ RandomList.defaultProps = {
 class Random extends React.Component {
   constructor (props) {
     super(props)
-    this._onCopy = this._onCopy.bind(this)
-  }
-
-  _onCopy () {
-    socket.emit("select image", {img: this.props.url})
+    this.onClickCopy = this.onClickCopy.bind(this)
   }
 
   render () {
     return (
-      <div>
+      <div id='recommend_img_area'>
         <div className="img_box">
           <img className="lgtm_img" src={this.props.url}/>
         </div>
-        <button type='button' onClick={this._onCopy} data-clipboard-text={this.props.clip_board} className="lgtm_img_copy btn btn-warning btn-large" data-toggle="tooltip" data-placement="bottom" data-original-title="Copied">
+        <button
+          type='button'
+          onClick={this.onClickCopy}
+          data-clipboard-text={this.props.clip_board}
+          className="lgtm_img_copy btn btn-warning btn-large"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          data-original-title="Copied"
+        >
           Copy
         </button>
       </div>
     )
+  }
+
+  onClickCopy () {
+    this.props.handleClickCopy(this.props.url)
   }
 }
 

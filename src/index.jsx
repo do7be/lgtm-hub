@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom'
 
 import { RandomList, RecommendList, ReloadButton } from './components/index.jsx'
 
-$(function() {
-  ReactDOM.render(<App/>, document.getElementById('app'))
-})
-
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -69,3 +65,5 @@ class App extends React.Component {
     this.socket.emit('select image', { img: url })
   }
 }
+
+ReactDOM.render(<App/>, document.getElementById('app'))

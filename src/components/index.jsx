@@ -55,12 +55,13 @@ RandomList.defaultProps = {
 class Random extends React.Component {
   constructor (props) {
     super(props)
+    this.saveRef = this.saveRef.bind(this)
     this.onClickCopy = this.onClickCopy.bind(this)
   }
 
   render () {
     return (
-      <div id='recommend_img_area'>
+      <div>
         <div className="img_box">
           <img className="lgtm_img" src={this.props.url}/>
         </div>
@@ -72,6 +73,7 @@ class Random extends React.Component {
           data-toggle="tooltip"
           data-placement="bottom"
           data-original-title="Copied"
+          ref={this.saveRef}
         >
           Copy
         </button>
@@ -79,8 +81,12 @@ class Random extends React.Component {
     )
   }
 
+  saveRef (ref) {
+    this.ref = ref
+  }
+
   onClickCopy () {
-    this.props.handleClickCopy(this.props.url)
+    this.props.handleClickCopy(this.props.url, this.ref)
   }
 }
 
@@ -93,23 +99,17 @@ Random.defaultProps = {
 export class RecommendList extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      data: props.data,
-    }
   }
 
   render () {
-    var recommend = this.state.data.map((img, index) => {
-      return (
-        <div key={index} className="recommend_img_box_area text-center">
-          <Recommend url={img.url} clip_board={img.clip_board}/>
-        </div>
-      )
-    })
     return (
-      <div>
+      <div id='recommend_img_area'>
         <h2 className="text-center history">Everyone's history</h2>
-        {recommend}
+        {this.props.data.map(img => (
+          <div key={img.url} className='recommend_img_box_area text-center'>
+            <Recommend url={img.url} clip_board={img.clip_board} handleClickCopy={this.props.handleClickCopy}/>
+          </div>
+        ))}
       </div>
     )
   }
@@ -123,24 +123,38 @@ RecommendList.defaultProps = {
 class Recommend extends React.Component {
   constructor (props) {
     super(props)
-    this._onCopy = this._onCopy.bind(this)
-  }
-
-  _onCopy () {
-    socket.emit("select image", {img: this.props.url});
+    this.saveRef = this.saveRef.bind(this)
+    this.onClickCopy = this.onClickCopy.bind(this)
   }
 
   render () {
     return (
       <div>
-        <div className="recommend_img_box">
+        <div className='recommend_img_box'>
           <img src={this.props.url}/>
         </div>
-        <button type='button' onClick={this._onCopy} data-clipboard-text={this.props.clip_board} className="recommend_lgtm_img_copy btn btn-success btn-small" data-toggle="tooltip" data-placement="bottom" title="Copied">
+        <button
+          type='button'
+          onClick={this.onClickCopy}
+          data-clipboard-text={this.props.clip_board}
+          className='recommend_lgtm_img_copy btn btn-success btn-small'
+          data-toggle='tooltip'
+          data-placement='bottom'
+          title='Copied'
+          ref={this.saveRef}
+        >
           Copy
         </button>
       </div>
     )
+  }
+
+  saveRef (ref) {
+    this.ref = ref
+  }
+
+  onClickCopy () {
+    this.props.handleClickCopy(this.props.url, this.ref)
   }
 }
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import {Image} from './components/image'
+import { copyClipboard } from './clipboard'
 import { RandomList, RecommendList, ReloadButton } from './components/index.jsx'
 
-import socket from './socket'
+import tooltip from './tooltip'
 
 $(function() {
   // measure of Safari and IE cache
@@ -15,15 +15,9 @@ $(function() {
   // initialize tooltip
   $('button').tooltip('destroy');
 
-  // copy button handler
-  $(".lgtm_img_copy").each((i, obj) => {
-    Image.setHandler(i, obj);
-  });
-
-  socket()
+  tooltip()
 
   ReactDOM.render(<App/>, document.getElementById('app'))
-
 })
 
 class App extends React.Component {
@@ -31,7 +25,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       randomImages: [],
-      recommendImages: [{url: '', clip_board: ''}]
+      recommendImages: []
     }
     this.socket = io()
     this.reloadRandomImages = this.reloadRandomImages.bind(this)
@@ -48,7 +42,7 @@ class App extends React.Component {
     // load recommend images to display bottom at other people copy
     this.socket.on('add recommend', (data) => {
       this.setState((prevState) => {
-        const recommendData = Object.assign({}, prevState)
+        const recommendData = [].concat(prevState.recommendImages)
         recommendData.push(data)
         recommendData.slice(0, 10)
 
@@ -82,7 +76,8 @@ class App extends React.Component {
     this.socket.emit('load random')
   }
 
-  handleClickCopy (url) {
+  handleClickCopy (url, ref) {
     this.socket.emit('select image', { img: url })
+    copyClipboard(ref)
   }
 }

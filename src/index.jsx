@@ -4,13 +4,7 @@ import ReactDOM from 'react-dom'
 import { RandomList, RecommendList, ReloadButton } from './components/index.jsx'
 
 $(function() {
-  // measure of Safari and IE cache
-  $.ajaxSetup({
-    cache: false
-  });
-
   ReactDOM.render(<App/>, document.getElementById('app'))
-
 })
 
 class App extends React.Component {
@@ -40,9 +34,8 @@ class App extends React.Component {
       this.setState((prevState) => {
         const recommendData = [].concat(prevState.recommendImages)
         recommendData.push(data)
-        recommendData.slice(0, 10)
 
-        return { recommendImages: recommendData }
+        return { recommendImages: recommendData.slice(-10) }
       })
     })
 

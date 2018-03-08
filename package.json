@@ -23,6 +23,7 @@
     "compression": "^1.6.1",
     "express": "^4.12.3",
     "jade": "*",
+    "qs": "^6.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-tippy": "^1.2.2",

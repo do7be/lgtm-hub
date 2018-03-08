@@ -25,7 +25,7 @@ server.listen(app.get('port'), function () {
 
 // route
 app.get('/', function(request, response) {
-  response.render('index', { title: 'LGTM-HUB', production: env === 'production' });
+  response.render('index', { production: env === 'production' });
 });
 
 // Socket.io

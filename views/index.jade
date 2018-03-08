@@ -17,7 +17,7 @@ html
     meta(property="og:type" content="website")
     meta(property="og:url" content="http://lgtm-hub.do7be.com/")
     meta(property="og:image" content="http://i.imgur.com/4gU76Y6.jpg")
-    title= title
+    title LGTM-HUB
     link(rel="shortcut icon", href="/img/favicon.ico")
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/style.css')
@@ -26,21 +26,6 @@ html
     script(src="/js/clipboard.min.js")
 
   body
-    section(class="window")
-      section(class="container")
-        section(class="contents")
-          div(id="tweet_button")
-            a(href="https://twitter.com/share" class="twitter-share-button" data-lang="ja").
-              Tweet
-            script.
-              !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-          div(class="clear_both")
-          div(class="text-center")
-            h1(class="title")= title
-            p Copy your clipboard in the form of markdown.
-              span(id="explain") ![LGTM](http://***)
-          div#app
-          section(id="lgtm_site_text")
-            p get images by <a href="http://www.lgtm.in/">http://www.lgtm.in/</a>
+    div#app
 
     script(src="/js/index.bundle.js")

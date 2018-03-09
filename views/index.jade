@@ -23,9 +23,10 @@ html
     link(rel='stylesheet', href='/css/style.css')
 
     script(src="/socket.io/socket.io.js")
-    script(src="/js/clipboard.min.js")
+    script(src="/js/lib/clipboard.min.js")
 
   body
     div#app
 
-    script(src="/js/index.bundle.js")
+    script(src="#{jsPath.vendor}")
+    script(src="#{jsPath.index}")

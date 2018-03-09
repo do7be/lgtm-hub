@@ -3,6 +3,7 @@ const sanitize = require('validator');
 const request = require ('request');
 const compression = require('compression')
 const socket_io = require('socket.io');
+const manifest = require('./manifest.json')
 let app = express();
 let server = require('http').createServer(app);
 
@@ -23,9 +24,14 @@ server.listen(app.get('port'), function () {
   console.log('Server listening at port %d', app.get('port'));
 });
 
+const jsPath = {
+  vendor: `/js/dist${manifest['vendors~index.js']}`,
+  index: `/js/dist${manifest['index.js']}`
+}
+
 // route
 app.get('/', function(request, response) {
-  response.render('index', { production: env === 'production' });
+  response.render('index', { production: env === 'production', jsPath });
 });
 
 // Socket.io

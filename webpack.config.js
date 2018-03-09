@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 module.exports = {
   // modeをわたすようにしたい
@@ -10,20 +11,27 @@ module.exports = {
     ]
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'public/js'),
     publicPath: '/',
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
+    }),
+    new ManifestPlugin()
   ],
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   module: {
     rules: [
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
+        loaders: ['style-loader', 'css-loader?modules'],
       },
       {
         test: /\.(js|jsx)$/,

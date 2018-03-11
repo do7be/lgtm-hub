@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
     if (req.headers['x-forwarded-proto'] !== 'https') {
       return res.redirect('https://' + req.headers.host + req.url)
     } else if (req.headers.host === 'lgtm-hub.herokuapp.com') {
-      return res.redirect(process.env.SERVER_ADDRESS + req.url)
+      return res.redirect('https://' + process.env.SERVER_ADDRESS + req.url)
     } else {
       return next()
     }

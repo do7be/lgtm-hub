@@ -1,55 +1,19 @@
 import qs from 'qs'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
 import HistoryList from './components/HistoryList'
 import RandomList from './components/RandomList'
 import ReloadButton from './components/ReloadButton'
 
+import rootStore from './store'
+const store = rootStore()
+
 import 'react-tippy/dist/tippy.css'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      randomImages: [],
-      recommendImages: []
-    }
-    this.socket = io()
-    this.reloadRandomImages = this.reloadRandomImages.bind(this)
-    this.handleClickCopy = this.handleClickCopy.bind(this)
-  }
-
-  componentDidMount () {
-    this.reloadRandomImages()
-
-    this.socket.on('load recommend', (data) => {
-      this.setState({ recommendImages: data })
-    })
-
-    // load recommend images to display bottom at other people copy
-    this.socket.on('add recommend', (data) => {
-      this.setState((prevState) => {
-        const recommendData = [].concat(prevState.recommendImages)
-        recommendData.push(data)
-
-        return { recommendImages: recommendData.slice(-10) }
-      })
-    })
-
-    // loaded random images to init or click reload button
-    this.socket.on('loaded random', (data) => {
-      const imageData = data.map(obj => ({
-        url: obj.imageUrl,
-        clip_board: `![LGTM](${obj.imageUrl})`
-      }))
-
-      this.setState({ randomImages: imageData })
-    })
-  }
-
   render () {
-    const { randomImages, recommendImages } = this.state
     return (
       <section className='window'>
         <section className='container'>
@@ -72,9 +36,9 @@ class App extends React.Component {
                 Copy your clipboard in the form of markdown.
                 <span className='explain'>![LGTM](http://***)</span>
               </p>
-              <ReloadButton handleClickReload={this.reloadRandomImages}/>
-              <RandomList data={randomImages} handleClickCopy={this.handleClickCopy}/>
-              <HistoryList data={recommendImages} handleClickCopy={this.handleClickCopy}/>
+              <ReloadButton/>
+              <RandomList/>
+              <HistoryList/>
 
             </div>
             <section className='lgtm_site_text'>
@@ -87,14 +51,11 @@ class App extends React.Component {
       </section>
     )
   }
-
-  reloadRandomImages () {
-    this.socket.emit('load random')
-  }
-
-  handleClickCopy (url) {
-    this.socket.emit('select image', { img: url })
-  }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
+  document.getElementById('app')
+)

@@ -1,5 +1,11 @@
+import classNames from 'classnames'
+
 import { Tooltip } from 'react-tippy'
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { selectImage } from '../actions'
 
 class Image extends React.Component {
   constructor (props) {
@@ -10,9 +16,10 @@ class Image extends React.Component {
   }
 
   render () {
+    const { small } = this.props
     return (
       <div>
-        <div className="img_box">
+        <div className={small ? 'recommend_img_box' : 'img_box'}>
           <img className="lgtm_img" src={this.props.url}/>
         </div>
         {/* buttonはコンポーネント化したい */}
@@ -28,7 +35,7 @@ class Image extends React.Component {
             type='button'
             onClick={this.onClickCopy}
             data-clipboard-text={this.props.clip_board}
-            className="lgtm_img_copy btn btn-warning btn-large"
+            className={classNames(small ? 'recommend_lgtm_img_copy' : 'lgtm_img_copy', 'btn', 'btn-warning', small ? 'btn-small' : 'btn-large')}
             ref={this.refToClipBoard}
           >
             Copy
@@ -46,7 +53,7 @@ class Image extends React.Component {
   }
 
   onClickCopy () {
-    this.props.handleClickCopy(this.props.url)
+    this.props.actions.selectImage({ img: this.props.url })
 
     this.setState({ openTooltip: true }, () => {
       setTimeout(() => {
@@ -58,7 +65,14 @@ class Image extends React.Component {
 
 Image.defaultProps = {
   url: '',
-  clip_board: ''
+  clip_board: '',
+  small: false
 }
 
-export default Image
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({ selectImage }, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Image)

@@ -1,21 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import Image from './Image'
 
 // Random LGTM Images
 class RandomList extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
   render () {
     return (
       <div className='img_area'>
-        {this.props.data.map(img => (
+        {this.props.random.data.map(img => (
           <div
             key={img.url}
             className='text-center'
           >
-            <Image url={img.url} clip_board={img.clip_board} handleClickCopy={this.props.handleClickCopy}/>
+            <Image url={img.url} clip_board={img.clip_board}/>
           </div>
         ))}
       </div>
@@ -23,8 +21,8 @@ class RandomList extends React.Component {
   }
 }
 
-RandomList.defaultProps = {
-  data: []
+const mapStateToProps = (store) => {
+  return ({ random: store.random })
 }
 
-export default RandomList
+export default connect(mapStateToProps)(RandomList)

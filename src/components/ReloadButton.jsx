@@ -1,4 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { loadRandom, setRandom } from '../actions'
+
 import { Tooltip } from 'react-tippy'
 
 class ReloadButton extends React.Component {
@@ -7,6 +12,18 @@ class ReloadButton extends React.Component {
     this.state = { busy: false, openTooltip: false }
     this.saveRef = this.saveRef.bind(this)
     this.onClickReload = this.onClickReload.bind(this)
+    this.handleReload = this.handleReload.bind(this)
+  }
+
+  componentDidMount () {
+    this.handleReload()
+    this.props.socket.socket.on('loaded random', (data) => {
+      const imageData = data.map(image => ({
+        url: image.imageUrl,
+        clip_board: `![LGTM](${image.imageUrl})`
+      }))
+      this.props.actions.setRandom(imageData)
+    })
   }
 
   componentDidUpdate (newProps) {
@@ -42,8 +59,12 @@ class ReloadButton extends React.Component {
 
   onClickReload () {
     this.setState({ busy: true, openTooltip: true }, () => {
-      this.props.handleClickReload()
+      this.handleReload()
     })
+  }
+
+  handleReload () {
+    this.props.actions.loadRandom()
   }
 
   saveRef (ref) {
@@ -51,4 +72,14 @@ class ReloadButton extends React.Component {
   }
 }
 
-export default ReloadButton
+const mapStateToProps = (store) => {
+  return ({ random: store.random, socket: store.socket })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({ loadRandom, setRandom }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReloadButton)

@@ -1780,6 +1780,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 clean-assets-webpack-plugin@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/clean-assets-webpack-plugin/-/clean-assets-webpack-plugin-1.0.1.tgz#87c3b325d391d69c1e8931b43857a359ab8f1fa5"

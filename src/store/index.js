@@ -8,7 +8,6 @@ const rootStore = () => {
   const store = createStore(
     rootReducer,
     composeEnhancers()
-    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 
   return store

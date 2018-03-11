@@ -1,7 +1,7 @@
 # LGTM-HUB
 Get and recommend a picture of "LGTM" for GitHub.
 
-http://lgtm-hub.do7be.com/
+https://lgtm-hub.do7be.com/
 
 Click copy button then copy markdown text to your clip board.
 

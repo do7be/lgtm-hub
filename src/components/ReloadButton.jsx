@@ -1,0 +1,54 @@
+import React from 'react'
+import { Tooltip } from 'react-tippy'
+
+class ReloadButton extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { busy: false, openTooltip: false }
+    this.saveRef = this.saveRef.bind(this)
+    this.onClickReload = this.onClickReload.bind(this)
+  }
+
+  componentDidUpdate (newProps) {
+    if (this.props !== newProps) {
+      this.setState({ busy: false, openTooltip: false })
+    }
+  }
+
+  render () {
+    return (
+      <section className='reload_area text-center'>
+        <Tooltip
+          title='Reloading...'
+          position='bottom'
+          trigger='manual'
+          open={this.state.openTooltip}
+          hideDelay={100}
+          arrow
+        >
+          <button
+            type='button'
+            className='reload_button btn btn-primary btn-large'
+            onClick={this.onClickReload}
+            ref={this.saveRef}
+            disabled={this.state.busy}
+          >
+            Reload
+          </button>
+        </Tooltip>
+      </section>
+    )
+  }
+
+  onClickReload () {
+    this.setState({ busy: true, openTooltip: true }, () => {
+      this.props.handleClickReload()
+    })
+  }
+
+  saveRef (ref) {
+    this.ref = ref
+  }
+}
+
+export default ReloadButton

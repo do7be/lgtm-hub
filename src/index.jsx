@@ -2,7 +2,9 @@ import qs from 'qs'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { RandomList, RecommendList, ReloadButton } from './components/index.jsx'
+import HistoryList from './components/HistoryList'
+import RandomList from './components/RandomList'
+import ReloadButton from './components/ReloadButton'
 
 import 'react-tippy/dist/tippy.css'
 
@@ -72,7 +74,7 @@ class App extends React.Component {
               </p>
               <ReloadButton handleClickReload={this.reloadRandomImages}/>
               <RandomList data={randomImages} handleClickCopy={this.handleClickCopy}/>
-              <RecommendList data={recommendImages} handleClickCopy={this.handleClickCopy}/>
+              <HistoryList data={recommendImages} handleClickCopy={this.handleClickCopy}/>
 
             </div>
             <section className='lgtm_site_text'>

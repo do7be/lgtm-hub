@@ -12,7 +12,9 @@ module.exports = {
     ]
   },
   output: {
-    filename: '[name].[hash].js',
+    filename: process.env.NODE_ENV !== 'production'
+      ? '[name].dev.js'
+      : '[name].[hash].js',
     path: path.resolve(__dirname, 'public/js/dist'),
     publicPath: '/',
   },
@@ -24,7 +26,7 @@ module.exports = {
     new CleanAssetsPlugin()
   ],
   optimization: {
-    minimize: true,
+    minimize: process.env.NODE_ENV === 'production',
     splitChunks: {
       chunks: 'all'
     }

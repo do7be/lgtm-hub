@@ -6,7 +6,8 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "watch": "NODE_ENV=development webpack -w",
-    "start": "NODE_ENV=production node app",
+    "start": "pm2 start app.json --env production --no-daemon",
+    "dev": "pm2 start app.json --watch --no-daemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "git@github.com:do7be/lgtm-hub.git",
@@ -23,10 +24,13 @@
     "compression": "^1.6.1",
     "express": "^4.12.3",
     "jade": "*",
+    "pm2": "^2.10.1",
     "qs": "^6.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "react-tippy": "^1.2.2",
+    "redux": "^3.7.2",
     "request": "^2.69.0",
     "socket.io": "^2.0.4",
     "validator": "^9.4.1"

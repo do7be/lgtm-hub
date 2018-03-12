@@ -3,15 +3,16 @@ import { connect } from 'react-redux'
 
 import Image from './Image'
 
-// Random LGTM Images
+import * as style from './RandomList.scss'
+
 class RandomList extends React.Component {
   render () {
     return (
-      <div className='img_area'>
+      <div className={style.imgArea}>
         {this.props.random.data.map(img => (
           <div
             key={img.url}
-            className='text-center'
+            className={style.textCenter}
           >
             <Image url={img.url} clip_board={img.clip_board}/>
           </div>

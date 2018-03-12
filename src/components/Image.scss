@@ -1,0 +1,20 @@
+.imgBox {
+  float: left;
+  width: 313px;
+  height: 310px;
+
+  &.small {
+    float: left;
+    width: 94px;
+    height: 104px;
+  }
+}
+
+.lgtmImg {
+  width: 313px;
+  max-height: 300px;
+}
+
+.lgtmImgCopy {
+  width: 100px;
+}

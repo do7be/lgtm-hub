@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux'
 
 import { selectImage } from '../actions'
 
+import * as style from './Image.scss'
+
 class Image extends React.Component {
   constructor (props) {
     super(props)
@@ -19,8 +21,8 @@ class Image extends React.Component {
     const { small } = this.props
     return (
       <div>
-        <div className={small ? 'recommend_img_box' : 'img_box'}>
-          <img className="lgtm_img" src={this.props.url}/>
+        <div className={classNames(style.imgBox, small && style.small)}>
+          <img className={style.lgtmImg} src={this.props.url}/>
         </div>
         {/* buttonはコンポーネント化したい */}
         <Tooltip
@@ -35,7 +37,7 @@ class Image extends React.Component {
             type='button'
             onClick={this.onClickCopy}
             data-clipboard-text={this.props.clip_board}
-            className={classNames(small ? 'recommend_lgtm_img_copy' : 'lgtm_img_copy', 'btn', 'btn-warning', small ? 'btn-small' : 'btn-large')}
+            className={classNames(!small && style.lgtmImgCopy, 'btn', 'btn-warning', small ? 'btn-small' : 'btn-large')}
             ref={this.refToClipBoard}
           >
             Copy

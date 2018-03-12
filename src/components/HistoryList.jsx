@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -5,6 +6,8 @@ import { bindActionCreators } from 'redux'
 import { addHistory, loadHistory, setHistory } from '../actions'
 
 import Image from './Image'
+
+import * as style from './HistoryList.scss'
 
 export class HistoryList extends React.Component {
   componentDidMount () {
@@ -21,10 +24,10 @@ export class HistoryList extends React.Component {
 
   render () {
     return (
-      <div className='recommend_img_area'>
-        <h2 className='text-center history'>Everyone's history</h2>
+      <div className={style.recommendImgArea}>
+        <h2 className={classNames(style.textCenter, style.history)}>Everyone's history</h2>
         {this.props.history.data.map(img => (
-          <div key={img.url} className='recommend_img_box_area text-center'>
+          <div key={img.url} className={style.recommendImgBoxArea}>
             <Image url={img.url} clip_board={img.clip_board} small/>
           </div>
         ))}

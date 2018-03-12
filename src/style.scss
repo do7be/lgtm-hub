@@ -1,0 +1,63 @@
+.tweetButton {
+  float: right;
+  margin-top: 10px;
+}
+
+.twitterShareButton {
+  height: 20px;
+  padding: 1px 10px 1px 10px;
+  background-color: #1b95e0;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.2s background-color;
+
+  &:hover {
+    background-color:  #37a6eb;
+    text-decoration: none;
+    color: #fff;
+  }
+}
+
+.clearBoth {
+  clear: both;
+}
+
+.window {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  width: 980px;
+  height: 100%;
+  margin: 0 auto;
+  background-color: #2ca9e1;
+}
+
+.contents {
+  height: 805px;
+  padding-left: 9px;
+  padding-right: 9px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: 5px;
+  background-color: #FFFFFF;
+}
+
+.title {
+  letter-spacing: 5px;
+}
+
+.explain {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.lgtmSiteText {
+  float: right;
+}

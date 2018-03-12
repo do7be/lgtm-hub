@@ -1,0 +1,35 @@
+.recommendImgArea {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  img {
+    clear: both;
+    width: 94px;
+    max-height: 94px;
+  }
+
+  button {
+    clear: both;
+  }
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.history {
+  letter-spacing: 2px;
+}
+
+.recommendImgBoxArea {
+  float: left;
+  width: 94px;
+  height: 104px;
+
+  &:first-of-type {
+    padding-left: 10px;
+  }
+}

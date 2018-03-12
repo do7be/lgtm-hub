@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import qs from 'qs'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -7,6 +8,8 @@ import HistoryList from './components/HistoryList'
 import RandomList from './components/RandomList'
 import ReloadButton from './components/ReloadButton'
 
+import * as style from './style.scss'
+
 import rootStore from './store'
 const store = rootStore()
 
@@ -15,12 +18,12 @@ import 'react-tippy/dist/tippy.css'
 class App extends React.Component {
   render () {
     return (
-      <section className='window'>
-        <section className='container'>
-          <section className='contents'>
-            <div className='tweet_button'>
+      <section className={style.window}>
+        <section className={style.container}>
+          <section className={style.contents}>
+            <div className={style.tweetButton}>
               <a
-                className='twitter-share-button'
+                className={style.twitterShareButton}
                 target='_blank'
                 href={`https://twitter.com/intent/tweet?${qs.stringify({
                   text: `LGTM-HUB ${location.href}`
@@ -29,19 +32,18 @@ class App extends React.Component {
                 Tweet
               </a>
             </div>
-            <div className='clear_both'></div>
-            <div className='text-center'>
-              <h1 className='title'>LGTM-HUB</h1>
+            <div className={style.clearBoth}></div>
+            <div className={style.textCenter}>
+              <h1 className={style.title}>LGTM-HUB</h1>
               <p>
                 Copy your clipboard in the form of markdown.
-                <span className='explain'>![LGTM](http://***)</span>
+                <span className={style.explain}>![LGTM](http://***)</span>
               </p>
               <ReloadButton/>
               <RandomList/>
               <HistoryList/>
-
             </div>
-            <section className='lgtm_site_text'>
+            <section className={style.lgtmSiteText}>
               <p>
                 get images by <a href='http://www.lgtm.in/'>http://www.lgtm.in/</a>
               </p>

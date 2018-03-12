@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -5,6 +6,8 @@ import { bindActionCreators } from 'redux'
 import { loadRandom, setRandom } from '../actions'
 
 import { Tooltip } from 'react-tippy'
+
+import * as style from './ReloadButton.scss'
 
 class ReloadButton extends React.Component {
   constructor (props) {
@@ -34,7 +37,7 @@ class ReloadButton extends React.Component {
 
   render () {
     return (
-      <section className='reload_area text-center'>
+      <section className={classNames(style.reloadArea, style.textCenter)}>
         <Tooltip
           title='Reloading...'
           position='bottom'
@@ -45,7 +48,7 @@ class ReloadButton extends React.Component {
         >
           <button
             type='button'
-            className='reload_button btn btn-primary btn-large'
+            className={classNames('btn btn-primary btn-large', style.reloadButton)}
             onClick={this.onClickReload}
             ref={this.saveRef}
             disabled={this.state.busy}

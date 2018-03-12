@@ -37,7 +37,11 @@ module.exports = (env, argv) => {
           loaders: ['style-loader', 'css-loader'],
         },
         {
-          test: /\.(js|jsx)$/,
+          test: /\.scss$/,
+          loaders: ['style-loader', 'css-loader?modules', 'sass-loader'],
+        },
+        {
+          test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
         },

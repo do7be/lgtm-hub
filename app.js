@@ -4,6 +4,8 @@ const request = require ('request');
 const compression = require('compression')
 const socket_io = require('socket.io');
 const manifest = require('./manifest.json')
+const redis = require('then-redis')
+const kvs = redis.createClient(process.env.REDIS_URL)
 let app = express();
 let server = require('http').createServer(app);
 
@@ -51,17 +53,16 @@ app.get('/', function(request, response) {
 // Socket.io
 let io = socket_io.listen(server);
 
-let recommend = new Array();
-
-io.on('connection', function (socket) {
-
+io.on('connection', async function (socket) {
+  const recommend = JSON.parse(await kvs.get('recommend')) || []
   socket.emit('load recommend', recommend);
 
   // recommend image to other people when user select image
-  socket.on('select image', function (data) {
+  socket.on('select image', async function (data) {
     let img_url = data.img;
+    let recommend = JSON.parse(await kvs.get('recommend')) || []
 
-    if (checkDataImg(img_url)) {
+    if (checkDataImg(img_url, recommend)) {
 
       img_url = sanitize.toString(img_url);
       let img = {url: img_url, clip_board: "![LGTM](" + img_url + ")"}
@@ -70,6 +71,7 @@ io.on('connection', function (socket) {
       if(recommend.length > 10) {
         recommend.shift();
       }
+      kvs.set('recommend', JSON.stringify(recommend), 'EX', 60 * 60 * 24 * 10) // 10日キャッシュ
 
       // recommend image to other people
       io.sockets.emit('add recommend', img);
@@ -113,7 +115,7 @@ function getJsonLgtmin() {
 }
 
 // sanitizing
-function checkDataImg (img) {
+function checkDataImg (img, recommend) {
   if (img.match(/"/) !== null || img.match(/'/) !== null) {
     return false;
   }

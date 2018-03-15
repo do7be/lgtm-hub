@@ -21,10 +21,7 @@ class ReloadButton extends React.Component {
   componentDidMount () {
     this.handleReload()
     this.props.socket.socket.on('loaded random', (data) => {
-      const imageData = data.map(image => ({
-        url: image.imageUrl,
-        clip_board: `![LGTM](${image.imageUrl})`
-      }))
+      const imageData = data.map(image => image.imageUrl)
       this.props.actions.setRandom(imageData)
     })
   }

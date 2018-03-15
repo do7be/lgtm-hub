@@ -27,8 +27,8 @@ export class HistoryList extends React.Component {
       <div className={style.recommendImgArea}>
         <h2 className={classNames(style.textCenter, style.history)}>Everyone's history</h2>
         {this.props.history.data.map(img => (
-          <div key={img.url} className={style.recommendImgBoxArea}>
-            <Image url={img.url} clip_board={img.clip_board} small/>
+          <div key={img} className={style.recommendImgBoxArea}>
+            <Image url={img} small/>
           </div>
         ))}
       </div>

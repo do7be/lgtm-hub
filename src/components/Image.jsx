@@ -36,7 +36,7 @@ class Image extends React.Component {
           <button
             type='button'
             onClick={this.onClickCopy}
-            data-clipboard-text={this.props.clip_board}
+            data-clipboard-text={`![LGTM](${this.props.url})`}
             className={classNames(!small && style.lgtmImgCopy, 'btn', 'btn-warning', small ? 'btn-small' : 'btn-large')}
             ref={this.refToClipBoard}
           >
@@ -67,7 +67,6 @@ class Image extends React.Component {
 
 Image.defaultProps = {
   url: '',
-  clip_board: '',
   small: false
 }
 

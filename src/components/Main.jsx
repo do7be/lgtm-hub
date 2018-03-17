@@ -3,14 +3,14 @@ import React from 'react'
 
 import HistoryList from './HistoryList'
 import RandomList from './RandomList'
-import ReloadButton from './ReloadButton'
+
+import * as style from './Main.scss'
 
 function Main () {
   return (
     <main>
-      <article>
+      <article className={style.randomListContainer}>
         <RandomList/>
-        <ReloadButton/>
       </article>
       <aside>
         <HistoryList/>

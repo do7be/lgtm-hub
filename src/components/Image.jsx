@@ -27,9 +27,9 @@ class Image extends React.Component {
           onClick={this.onClickCopy}
           data-clipboard-text={this.props.clip_board}
           className={classNames(style.copyButton, this.state.copyAnimation && style.copied)}
-          style={{ backgroundImage: `url('${this.props.url}')`}}
           ref={this.refToClipBoard}
         >
+          <img src={this.props.url} className={style.image}/>
           <div className={style.border}/>
           <div className={style.copiedNotice}>
             <Check width={72} height={72} className={style.check}/>

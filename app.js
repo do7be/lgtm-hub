@@ -52,31 +52,28 @@ app.get('/', function(request, response) {
 
 // Socket.io
 let io = socket_io.listen(server);
+const redisKey = 'history'
 
 io.on('connection', async function (socket) {
-  const recommend = JSON.parse(await kvs.get('recommend')) || []
+  const recommend = await kvs.lrange(redisKey, 0, -1) || []
   socket.emit('load recommend', recommend);
 
   // recommend image to other people when user select image
   socket.on('select image', async function (data) {
-    let img_url = data.img;
-    let recommend = JSON.parse(await kvs.get('recommend')) || []
+    let imgUrl = data.img
 
-    if (checkDataImg(img_url, recommend)) {
-
-      img_url = sanitize.toString(img_url);
-      let img = {url: img_url, clip_board: "![LGTM](" + img_url + ")"}
-
-      recommend.push(img);
-      if(recommend.length > 24) {
-        recommend.shift();
+    const recommend = await kvs.lrange(redisKey, 0, -1) || []
+    if (checkDataImg(imgUrl, recommend)) {
+      imgUrl = sanitize.toString(imgUrl)
+      await kvs.rpush(redisKey, imgUrl)
+      if ((await kvs.llen(redisKey)) > 24) {
+        await kvs.lpop(redisKey)
       }
-      kvs.set('recommend', JSON.stringify(recommend), 'EX', 60 * 60 * 24 * 10) // 10日キャッシュ
-
+      await kvs.expireat(redisKey, parseInt((new Date) / 1000, 10) + 60 * 60 * 24 * 10) // 10日キャッシュ
       // recommend image to other people
-      io.sockets.emit('add recommend', img);
+      io.sockets.emit('add recommend', imgUrl)
     }
-  });
+  })
 
   // init load or click reload button
   socket.on('load random', function (data) {
@@ -125,13 +122,8 @@ function checkDataImg (img, recommend) {
   }
 
   // check already contain
-  let filetered_recommend = recommend.filter(function(recommended, index){
-    if (recommended.url == img) {
-      return true;
-    }
-  });
-  if(filetered_recommend.length > 0){
-    return false;
+  if (recommend.includes(img)) {
+    return false
   }
 
   return true;

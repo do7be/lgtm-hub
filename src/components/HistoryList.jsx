@@ -28,8 +28,8 @@ export class HistoryList extends React.Component {
         <h2 className={style.label}>HISTORY</h2>
         <ul className={style.gridContainer}>
           {this.props.history.data.map(img => (
-            <li key={img.url} className={style.item}>
-              <Image url={img.url} clip_board={img.clip_board} small/>
+            <li key={img} className={style.item}>
+              <Image url={img} small/>
             </li>
           ))}
         </ul>

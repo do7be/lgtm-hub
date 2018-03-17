@@ -12,10 +12,10 @@ class RandomList extends React.Component {
       <div className={style.container}>
         {this.props.random.data.map(img => (
           <div
-            key={img.url}
+            key={img}
             className={style.item}
           >
-            <Image url={img.url} clip_board={img.clip_board}/>
+            <Image url={img}/>
           </div>
         ))}
         <div className={style.item}>

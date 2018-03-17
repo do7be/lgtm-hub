@@ -19,17 +19,17 @@ class Image extends React.Component {
   }
 
   render () {
-    const { small } = this.props
+    const { small, url } = this.props
     return (
       <div className={classNames(style.container, small && style.small)}>
         <button
           type='button'
           onClick={this.onClickCopy}
-          data-clipboard-text={this.props.clip_board}
+          data-clipboard-text={`![LGTM](${url})`}
           className={classNames(style.copyButton, this.state.copyAnimation && style.copied)}
           ref={this.refToClipBoard}
         >
-          <img src={this.props.url} className={style.image}/>
+          <img src={url} className={style.image}/>
           <div className={style.border}/>
           <div className={style.copiedNotice}>
             <Check width={72} height={72} className={style.check}/>
@@ -60,7 +60,6 @@ class Image extends React.Component {
 
 Image.defaultProps = {
   url: '',
-  clip_board: '',
   small: false
 }
 

@@ -1,11 +1,20 @@
-.reloadArea {
-  margin-bottom: 10px;
-}
-
-.textCenter {
+.container {
+  width: 420px;
   text-align: center;
 }
 
 .reloadButton {
-  width: 200px;
+  padding: 0;
+  border: none;
+  outline: 0;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background-color: #8000ff;
+  cursor: pointer;
+  transition: 0.4s background-color;
+
+  &:hover {
+    background-color: #9933ff;
+  }
 }

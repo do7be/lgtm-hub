@@ -47,6 +47,7 @@
     "clean-assets-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.10",
     "node-sass": "^4.8.1",
+    "react-svg-loader": "^2.1.0",
     "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.2",

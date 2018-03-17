@@ -1,15 +1,13 @@
-.imgArea {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
-  height: 370px;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin: -12px auto;
+  width: 888px;
+  height: 678px;
 }
 
-.textCenter {
-  float: left;
-  width: 313px;
-  height: 310px;
+.item {
+  margin: 12px;
 }

@@ -66,7 +66,7 @@ io.on('connection', async function (socket) {
     if (checkDataImg(imgUrl, recommend)) {
       imgUrl = sanitize.toString(imgUrl)
       await kvs.rpush(redisKey, imgUrl)
-      if ((await kvs.llen(redisKey)) > 10) {
+      if ((await kvs.llen(redisKey)) > 24) {
         await kvs.lpop(redisKey)
       }
       await kvs.expireat(redisKey, parseInt((new Date) / 1000, 10) + 60 * 60 * 24 * 10) // 10日キャッシュ

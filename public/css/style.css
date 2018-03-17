@@ -1,12 +1,4 @@
-html, body {
-  height: 100%;
-}
-
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #2ca9e1;
-}
-
-a {
-  color: #00B7FF;
+  margin: 0;
 }

@@ -41,9 +41,12 @@
 
 .copyButton {
   position: relative;
+  width: 420px;
+  height: 315px;
   padding: 0;
   border: 0;
   outline: none;
+  background: none;
   cursor: pointer;
 
   &:hover {
@@ -62,7 +65,7 @@
 .image {
   display: block;
   width: 420px;
-  max-height: 420px;
+  max-height: 315px;
   border-radius: 12px;
 }
 
@@ -71,7 +74,8 @@
 
   &.small {
     .copyButton {
-      background-size: cover;
+      width: auto;
+      height: auto;
     }
 
     .image {

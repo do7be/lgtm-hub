@@ -1,9 +1,11 @@
 .container {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   flex-wrap: wrap;
   margin: -12px auto;
   width: 888px;
+  height: 678px;
 }
 
 .item {

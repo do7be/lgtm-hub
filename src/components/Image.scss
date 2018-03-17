@@ -1,20 +1,79 @@
-.imgBox {
-  float: left;
-  width: 313px;
-  height: 310px;
+.border {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 100%;
+  height: 100%;
+  border: 6px solid #00d4ff;
+  border-radius: 18px;
+  opacity: 0;
+  transition: 0.4s opacity;
+}
 
-  &.small {
-    float: left;
-    width: 94px;
-    height: 104px;
+.copiedNotice {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.75);
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  opacity: 0;
+  transition: 0.4s opacity;
+}
+
+.check {
+  background-image: url('./check.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.text {
+  margin-top: 8px;
+}
+
+.copyButton {
+  position: relative;
+  width: 313px;
+  height: 300px;
+  border-radius: 12px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: 0;
+  outline: none;
+
+  &:hover {
+    .border {
+      opacity: 1;
+    }
+  }
+
+
+  &.copied {
+    .copiedNotice {
+      opacity: 1;
+    }
   }
 }
 
-.lgtmImg {
-  width: 313px;
-  max-height: 300px;
-}
+.container {
+  &.small {
+    .copyButton {
+      width: 128px;
+      height: 128px;
+      background-size: cover;
+    }
 
-.lgtmImgCopy {
-  width: 100px;
+    .text {
+      display: none;
+    }
+  }
 }

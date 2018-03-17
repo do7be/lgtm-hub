@@ -5,7 +5,7 @@ https://lgtm-hub.do7be.com/
 
 Click copy button then copy markdown text to your clip board.
 
-![ScreenShot](https://raw.github.com/wiki/do7be/lgtm-hub/1cd7f086898c17168939937659a479b5.png)
+![ScreenShot](https://user-images.githubusercontent.com/9024344/37554789-ecc987e2-2a20-11e8-9433-b100bc43ddab.png)
 
 ## Get Start
 

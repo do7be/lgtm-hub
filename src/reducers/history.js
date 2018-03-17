@@ -13,7 +13,7 @@ export default function random (state = initialState, action) {
       recommendData.push(action.payload)
 
       return {
-        data: recommendData.slice(-10)
+        data: recommendData.slice(-24)
       }
     default:
       return state

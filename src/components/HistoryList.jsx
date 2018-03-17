@@ -24,13 +24,15 @@ export class HistoryList extends React.Component {
 
   render () {
     return (
-      <div className={style.recommendImgArea}>
-        <h2 className={classNames(style.textCenter, style.history)}>Everyone's history</h2>
-        {this.props.history.data.map(img => (
-          <div key={img.url} className={style.recommendImgBoxArea}>
-            <Image url={img.url} clip_board={img.clip_board} small/>
-          </div>
-        ))}
+      <div className={style.historyContainer}>
+        <h2 className={style.label}>HISTORY</h2>
+        <ul className={style.gridContainer}>
+          {this.props.history.data.map(img => (
+            <li key={img.url} className={style.item}>
+              <Image url={img.url} clip_board={img.clip_board} small/>
+            </li>
+          ))}
+        </ul>
       </div>
     )
   }

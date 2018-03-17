@@ -1,35 +1,26 @@
-.recommendImgArea {
-  width: 100%;
-  height: 200px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-
-  img {
-    clear: both;
-    width: 94px;
-    max-height: 94px;
-  }
-
-  button {
-    clear: both;
-  }
+.historyContainer {
+  padding: 48px;
+  background-color: #fafafa;
 }
 
-.textCenter {
+.label {
   text-align: center;
+  margin: 0 0 36px;
+  line-height: 1;
+  font-weight: bold;
+  font-size: 20px;
+  color: #000;
 }
 
-.history {
-  letter-spacing: 2px;
+.gridContainer {
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  list-style-type: none;
+  width: 912px;
+  min-height: 128px;
 }
 
-.recommendImgBoxArea {
-  float: left;
-  width: 94px;
-  height: 104px;
-
-  &:first-of-type {
-    padding-left: 10px;
-  }
+.item {
+  margin: 12px;
 }

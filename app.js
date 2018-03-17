@@ -68,7 +68,7 @@ io.on('connection', async function (socket) {
       let img = {url: img_url, clip_board: "![LGTM](" + img_url + ")"}
 
       recommend.push(img);
-      if(recommend.length > 10) {
+      if(recommend.length > 24) {
         recommend.shift();
       }
       kvs.set('recommend', JSON.stringify(recommend), 'EX', 60 * 60 * 24 * 10) // 10日キャッシュ

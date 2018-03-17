@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Main from './components/Main'
 
+import 'react-tippy/dist/tippy.css'
+
 import rootStore from './store'
 const store = rootStore()
 

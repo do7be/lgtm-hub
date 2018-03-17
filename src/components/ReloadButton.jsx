@@ -7,6 +7,8 @@ import { loadRandom, setRandom } from '../actions'
 
 import { Tooltip } from 'react-tippy'
 
+import ReloadSvg from './reload.svg'
+
 import * as style from './ReloadButton.scss'
 
 class ReloadButton extends React.Component {
@@ -37,7 +39,7 @@ class ReloadButton extends React.Component {
 
   render () {
     return (
-      <section className={classNames(style.reloadArea, style.textCenter)}>
+      <div className={style.container}>
         <Tooltip
           title='Reloading...'
           position='bottom'
@@ -48,15 +50,15 @@ class ReloadButton extends React.Component {
         >
           <button
             type='button'
-            className={classNames('btn btn-primary btn-large', style.reloadButton)}
+            className={style.reloadButton}
             onClick={this.onClickReload}
             ref={this.saveRef}
             disabled={this.state.busy}
           >
-            Reload
+            <ReloadSvg width={72} height={72}/>
           </button>
         </Tooltip>
-      </section>
+      </div>
     )
   }
 

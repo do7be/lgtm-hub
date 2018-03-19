@@ -40,20 +40,11 @@
 }
 
 .copyButton {
-  position: relative;
-  width: 420px;
-  height: 315px;
   padding: 0;
   border: 0;
   outline: none;
   background: none;
   cursor: pointer;
-
-  &:hover {
-    .border {
-      opacity: 1;
-    }
-  }
 
   &.copied {
     .copiedNotice {
@@ -64,19 +55,33 @@
 
 .image {
   display: block;
-  width: 420px;
-  max-height: 315px;
+  margin: 0 auto;
+  max-width: 420px;
+  max-height: 236px;
   border-radius: 12px;
 }
 
+.imageContainer {
+  position: relative;
+
+  &:hover {
+    .border {
+      opacity: 1;
+    }
+  }
+}
+
 .container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 420px;
+  height: 236px;
   line-height: 0;
 
   &.small {
-    .copyButton {
-      width: auto;
-      height: auto;
-    }
+    width: auto;
+    height: auto;
 
     .image {
       width: 128px;

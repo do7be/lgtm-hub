@@ -29,11 +29,13 @@ class Image extends React.Component {
           className={classNames(style.copyButton, this.state.copyAnimation && style.copied)}
           ref={this.refToClipBoard}
         >
-          <img src={url} className={style.image}/>
-          <div className={style.border}/>
-          <div className={style.copiedNotice}>
-            <Check width={72} height={72} className={style.check}/>
-            <span className={style.text}>Copied</span>
+          <div className={style.imageContainer}>
+            <img src={url} className={style.image}/>
+            <div className={style.border}/>
+            <div className={style.copiedNotice}>
+              <Check width={72} height={72} className={style.check}/>
+              <span className={style.text}>Copied</span>
+            </div>
           </div>
         </button>
       </div>

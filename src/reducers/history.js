@@ -7,13 +7,13 @@ export default function random (state = initialState, action) {
     case HISTORY:
       return { data: state.data }
     case SET_HISTORY:
-      return { data: action.payload }
+      return { data: action.payload.reverse() }
     case ADD_HISTORY:
       const recommendData = [].concat(state.data)
-      recommendData.push(action.payload)
+      recommendData.unshift(action.payload)
 
       return {
-        data: recommendData.slice(-24)
+        data: recommendData.slice(0, 24)
       }
     default:
       return state

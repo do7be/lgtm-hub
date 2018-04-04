@@ -11,6 +11,7 @@ function Header () {
     <header className={style.header}>
       <Logo/>
       <TwitterButton/>
+      <PopupDescription/>
     </header>
   )
 }
@@ -35,5 +36,15 @@ function TwitterButton () {
     >
       <TwitterSvg width={40} height={40}/>
     </a>
+  )
+}
+
+function PopupDescription () {
+  return (
+    <div className={style.popupContainer}>
+      <div className={style.popup}>
+        Choose a image to get a LGTM Markdown text 🤗
+      </div>
+    </div>
   )
 }

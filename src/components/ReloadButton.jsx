@@ -15,9 +15,6 @@ class ReloadButton extends React.Component {
   constructor (props) {
     super(props)
     this.state = { busy: false, openTooltip: false }
-    this.saveRef = this.saveRef.bind(this)
-    this.onClickReload = this.onClickReload.bind(this)
-    this.handleReload = this.handleReload.bind(this)
   }
 
   componentDidMount () {
@@ -59,17 +56,17 @@ class ReloadButton extends React.Component {
     )
   }
 
-  onClickReload () {
+  onClickReload = () => {
     this.setState({ busy: true, openTooltip: true }, () => {
       this.handleReload()
     })
   }
 
-  handleReload () {
+  handleReload = () => {
     this.props.actions.loadRandom()
   }
 
-  saveRef (ref) {
+  saveRef = (ref) => {
     this.ref = ref
   }
 }

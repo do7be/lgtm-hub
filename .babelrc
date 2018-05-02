@@ -16,5 +16,6 @@
         }
       }
     ]
-  ]
+  ],
+  "plugins": ["transform-class-properties"]
 }

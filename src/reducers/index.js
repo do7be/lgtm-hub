@@ -4,11 +4,14 @@ import random from './random'
 import history from './history'
 import image from './image'
 
+import { loadingBarReducer } from 'react-redux-loading-bar'
+
 const rootReducer = combineReducers({
   socket,
   random,
   history,
-  image
+  image,
+  loadingBar: loadingBarReducer
 })
 
 export default rootReducer

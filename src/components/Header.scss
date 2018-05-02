@@ -1,3 +1,11 @@
+.loadingBar {
+  position: fixed;
+  top: 0;
+  height: 4px;
+  z-index: 1;
+  background-color: #0066ff;
+}
+
 .header {
   position: relative;
   padding: 64px 0;

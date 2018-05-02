@@ -14,8 +14,6 @@ class Image extends React.Component {
   constructor (props) {
     super(props)
     this.state = { copyAnimation: false }
-    this.onClickCopy = this.onClickCopy.bind(this)
-    this.refToClipBoard = this.refToClipBoard.bind(this)
   }
 
   render () {
@@ -42,14 +40,14 @@ class Image extends React.Component {
     )
   }
 
-  refToClipBoard (ref) {
+  refToClipBoard = (ref) => {
     if (ref === null) { return }
 
     const client = new ClipboardJS(ref)
     client.on('success', event => { /* noop */ })
   }
 
-  onClickCopy () {
+  onClickCopy = () => {
     this.props.actions.selectImage({ img: this.props.url })
 
     this.setState({ copyAnimation: true }, () => {

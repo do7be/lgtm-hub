@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { loadRandom, setRandom } from '../actions'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 import { Tooltip } from 'react-tippy'
 
@@ -22,6 +23,7 @@ class ReloadButton extends React.Component {
     this.props.socket.socket.on('loaded random', (data) => {
       const imageData = data.map(image => image.imageUrl)
       this.props.actions.setRandom(imageData)
+      this.props.actions.hideLoading()
     })
   }
 
@@ -64,6 +66,7 @@ class ReloadButton extends React.Component {
 
   handleReload = () => {
     this.props.actions.loadRandom()
+    this.props.actions.showLoading()
   }
 
   saveRef = (ref) => {
@@ -77,7 +80,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({ loadRandom, setRandom }, dispatch)
+    actions: bindActionCreators({ loadRandom, setRandom, showLoading, hideLoading }, dispatch)
   }
 }
 

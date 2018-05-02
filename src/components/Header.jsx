@@ -6,9 +6,12 @@ import * as style from './Header.scss'
 import LogoSvg from './logo.svg'
 import TwitterSvg from './twitter.svg'
 
+import LoadingBar from 'react-redux-loading-bar'
+
 function Header () {
   return (
     <header className={style.header}>
+      <LoadingBar className={style.loadingBar}/>
       <Logo/>
       <TwitterButton/>
       <PopupDescription/>

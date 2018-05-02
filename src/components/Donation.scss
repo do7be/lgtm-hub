@@ -1,0 +1,39 @@
+.donation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr {
+  width: 80px;
+  height: 80px;
+}
+
+.addressContainer {
+  margin-left: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  line-height: 1;
+}
+
+.description {
+  margin-bottom: 2px;
+  color: #bfbfbf;
+}
+
+.address {
+  margin-bottom: 8px;
+  color: #808080;
+}
+
+.button {
+  padding: 7px 16px;
+  background-color: #bfbfbf;
+  border-radius: 14px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+}

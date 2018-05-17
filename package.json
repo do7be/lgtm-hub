@@ -6,9 +6,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack -w --mode development",
-    "start": "pm2 start app.json --env production --no-daemon",
-    "dev": "pm2 start app.json --watch --no-daemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pm2-runtime app.json --env production",
+    "dev": "pm2-runtime app.json --watch"
   },
   "repository": "git@github.com:do7be/lgtm-hub.git",
   "author": "do7be",

@@ -46,6 +46,10 @@ module.exports = (env, argv) => {
           loader: 'babel-loader',
         },
         {
+          test: /\.tsx?$/,
+          loader: 'ts-loader'
+        },
+        {
           test: /\.svg$/,
           use: [
             {
@@ -71,11 +75,11 @@ module.exports = (env, argv) => {
               }
             }
           ]
-        },
+        }
       ]
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
   }
 };

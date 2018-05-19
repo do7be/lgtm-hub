@@ -5,7 +5,7 @@ const socket = io()
 type GetSocketAction = { type: ActionNames.SOCKET }
 type Actions = GetSocketAction
 
-interface State {
+export interface State {
   socket: any
 }
 

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import socket from './socket'
-import random from './random'
-import history from './history'
-import image from './image'
+import socket, { State as SocketState } from './socket'
+import random, { State as RandomState } from './random'
+import history, { State as HistoryState } from './history'
+import image, { State as ImageState } from './image'
 
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
@@ -16,13 +16,11 @@ const rootReducer = combineReducers<RootState>({
 
 export default rootReducer
 
-// TODO
 export type RootState = {
-  socket: any
-  random: any
-  history: any
-  image: any
-  loadingBar: any
+  socket: SocketState
+  random: RandomState
+  history: HistoryState
+  image: ImageState
 }
 
 export type ReduxAction = any

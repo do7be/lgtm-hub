@@ -1,6 +1,6 @@
 import { RandomActionNames as ActionNames } from '../constants/ActionTypes'
 
-interface State {
+export interface State {
   data: string[]
 }
 

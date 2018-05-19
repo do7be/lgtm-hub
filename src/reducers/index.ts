@@ -6,7 +6,7 @@ import image from './image'
 
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers<RootState>({
   socket,
   random,
   history,

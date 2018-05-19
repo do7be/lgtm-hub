@@ -7,24 +7,25 @@ export const loadRandom = () => {
   return { type: types.LOAD_RANDOM }
 }
 
-export const setRandom = (data) => {
+export const setRandom = (data: string) => {
   return { type: types.SET_RANDOM, payload: data }
 }
 
-export const addHistory = (data) => {
-  return { type: types.ADD_HISTORY, payload: data }
+export const addHistory = (data: string) => {
+  return { type: types.HistoryActionNames.ADD_HISTORY, payload: data }
 }
 
 export const loadHistory = () => {
   store().getState().socket.socket.emit('load recommend')
-  return { type: types.LOAD_HISTORY }
+  return { type: types.HistoryActionNames.LOAD_HISTORY }
 }
 
-export const setHistory = (data) => {
-  return { type: types.SET_HISTORY, payload: data }
+export const setHistory = (data: string) => {
+  return { type: types.HistoryActionNames.SET_HISTORY, payload: data }
 }
 
-export const selectImage = (data) => {
+// TODO
+export const selectImage = (data: any) => {
   store().getState().socket.socket.emit('select image', data)
 
   return { type: types.SELECT_IMAGE }

@@ -13,3 +13,9 @@ Click copy button then copy markdown text to your clip board.
 $ yarn
 $ yarn run build
 ```
+
+## Start Development
+
+```
+$ docker-compose up
+```

@@ -7,7 +7,7 @@ module.exports = (env, argv) => {
   return {
     entry: {
       'index': [
-        path.resolve(__dirname, 'src/index.jsx')
+        path.resolve(__dirname, 'src/index.tsx')
       ]
     },
     output: {

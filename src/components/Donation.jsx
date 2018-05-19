@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import React from 'react'
 
+import clipboard from 'clipboard'
+
 import { Tooltip } from 'react-tippy'
 
 import * as style from './Donation.scss'
@@ -47,7 +49,7 @@ export default class Donation extends React.Component {
   refToClipBoard = (ref) => {
     if (ref === null) { return }
 
-    const client = new ClipboardJS(ref)
+    const client = new clipboard(ref)
     client.on('success', event => { /* noop */ })
   }
 

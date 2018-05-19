@@ -2,16 +2,33 @@ import classNames from 'classnames'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import { selectImage } from '../actions'
 
 import * as style from './Image.scss'
 
+import clipboard from 'clipboard'
+
 import Check from './check.svg'
 
-class Image extends React.Component {
-  constructor (props) {
+interface OwnProps {
+  url: string
+  small?: boolean
+}
+
+type Props = OwnProps & typeof mapDispatchToProps
+
+interface State {
+  copyAnimation: boolean
+}
+
+class Image extends React.Component<Props, State> {
+  static defaultProps: OwnProps = {
+    url: '',
+    small: false
+  }
+
+  constructor (props: Props) {
     super(props)
     this.state = { copyAnimation: false }
   }
@@ -40,15 +57,15 @@ class Image extends React.Component {
     )
   }
 
-  refToClipBoard = (ref) => {
+  refToClipBoard = (ref: HTMLButtonElement|null) => {
     if (ref === null) { return }
 
-    const client = new ClipboardJS(ref)
-    client.on('success', event => { /* noop */ })
+    const client = new clipboard(ref)
+    client.on('success', (_event: clipboard.Event) => { /* noop */ })
   }
 
   onClickCopy = () => {
-    this.props.actions.selectImage({ img: this.props.url })
+  this.props.selectImage({ img: this.props.url })
 
     this.setState({ copyAnimation: true }, () => {
       setTimeout(() => {
@@ -58,15 +75,8 @@ class Image extends React.Component {
   }
 }
 
-Image.defaultProps = {
-  url: '',
-  small: false
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators({ selectImage }, dispatch)
-  }
+const mapDispatchToProps = {
+  selectImage
 }
 
 export default connect(null, mapDispatchToProps)(Image)

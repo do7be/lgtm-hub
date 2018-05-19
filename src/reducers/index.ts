@@ -15,3 +15,14 @@ const rootReducer = combineReducers({
 })
 
 export default rootReducer
+
+// TODO
+export type RootState = {
+  socket: any
+  random: any
+  history: any
+  image: any
+  loadingBar: any
+}
+
+export type ReduxAction = any

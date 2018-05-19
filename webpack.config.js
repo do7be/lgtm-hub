@@ -41,13 +41,13 @@ module.exports = (env, argv) => {
           loaders: ['style-loader', 'css-loader?modules', 'sass-loader'],
         },
         {
+          test: /\.tsx?$/,
+          loaders: ['babel-loader', 'ts-loader']
+        },
+        {
           test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
-        },
-        {
-          test: /\.tsx?$/,
-          loader: 'ts-loader'
         },
         {
           test: /\.svg$/,

@@ -23,7 +23,6 @@
       "esnext",
       "dom"
     ],
-
     "baseUrl": "."
-  }
+  },
 }

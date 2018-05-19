@@ -15,4 +15,6 @@ export enum ImageActionNames {
   SELECT_IMAGE = 'SELECT_IMAGE'
 }
 
-export const SOCKET = 'SOCKET'
+export enum SocketActionNames {
+  SOCKET = 'SOCKET'
+}

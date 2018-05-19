@@ -27,10 +27,8 @@ class Image extends React.Component<Props, State> {
     url: '',
     small: false
   }
-
-  constructor (props: Props) {
-    super(props)
-    this.state = { copyAnimation: false }
+  readonly state: Readonly<State> = {
+    copyAnimation: false
   }
 
   render () {

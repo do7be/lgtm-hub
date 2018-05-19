@@ -1,24 +1,35 @@
-import classNames from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import { addHistory, loadHistory, setHistory } from '../actions'
+
+import { RootState } from '../reducers'
+import { State as HistoryState } from '../reducers/history'
+import { State as SocketState } from '../reducers/socket'
 
 import Image from './Image'
 
 import * as style from './HistoryList.scss'
 
-export class HistoryList extends React.Component {
-  componentDidMount () {
-    this.props.actions.loadHistory()
+interface OwnProps {}
 
-    this.props.socket.socket.on('add recommend', (data) => {
-      this.props.actions.addHistory(data)
+interface ReduxProps {
+  history: HistoryState
+  socket: SocketState
+}
+
+type Props = OwnProps & ReduxProps & typeof mapDispatchToProps
+
+export class HistoryList extends React.Component<Props> {
+  componentDidMount () {
+    this.props.loadHistory()
+
+    this.props.socket.socket.on('add recommend', (data: string) => {
+      this.props.addHistory(data)
     })
 
-    this.props.socket.socket.on('load recommend', (data) => {
-      this.props.actions.setHistory(data)
+    this.props.socket.socket.on('load recommend', (data: string) => {
+      this.props.setHistory(data)
     })
   }
 
@@ -38,14 +49,14 @@ export class HistoryList extends React.Component {
   }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (store: RootState) => {
   return ({ history: store.history, socket: store.socket })
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators({ addHistory, loadHistory, setHistory }, dispatch)
-  }
+const mapDispatchToProps = {
+  addHistory,
+  loadHistory,
+  setHistory
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryList)

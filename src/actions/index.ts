@@ -7,7 +7,7 @@ export const loadRandom = () => {
   return { type: types.RandomActionNames.LOAD_RANDOM }
 }
 
-export const setRandom = (data: string) => {
+export const setRandom = (data: string[]) => {
   return { type: types.RandomActionNames.SET_RANDOM, payload: data }
 }
 

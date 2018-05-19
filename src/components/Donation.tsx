@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import React from 'react'
 
 import clipboard from 'clipboard'
@@ -9,13 +8,16 @@ import * as style from './Donation.scss'
 
 import qr from './wallet.png'
 
+interface Props {}
+
+interface State {
+  showTooltip: boolean
+}
+
 const address = 'qquk3v3ff096prnnffyeux8mqd0frshq9qr4s93wuz'
-export default class Donation extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      showTooltip: false
-    }
+export default class Donation extends React.Component<Props, State> {
+  readonly state: Readonly<State> = {
+    showTooltip: false
   }
 
   render () {
@@ -46,11 +48,11 @@ export default class Donation extends React.Component {
     )
   }
 
-  refToClipBoard = (ref) => {
+  refToClipBoard = (ref: HTMLButtonElement|null) => {
     if (ref === null) { return }
 
     const client = new clipboard(ref)
-    client.on('success', event => { /* noop */ })
+    client.on('success', (_event: clipboard.Event) => { /* noop */ })
   }
 
   handleClick = () => {

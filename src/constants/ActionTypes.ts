@@ -1,12 +1,20 @@
-export const RANDOM = 'RANDOM'
-export const LOAD_RANDOM = 'LOAD_RANDOM'
-export const SET_RANDOM = 'SET_RANDOM'
+export enum RandomActionNames {
+  RANDOM = 'RANDOM',
+  LOAD_RANDOM = 'LOAD_RANDOM',
+  SET_RANDOM = 'SET_RANDOM',
+}
 
-export const HISTORY = 'HISTORY'
-export const LOAD_HISTORY = 'LOAD_HISTORY'
-export const SET_HISTORY = 'SET_HISTORY'
-export const ADD_HISTORY = 'ADD_HISTORY'
+export enum HistoryActionNames {
+  HISTORY = 'HISTORY',
+  LOAD_HISTORY = 'LOAD_HISTORY',
+  SET_HISTORY = 'SET_HISTORY',
+  ADD_HISTORY = 'ADD_HISTORY',
+}
 
-export const SELECT_IMAGE = 'SELECT_IMAGE'
+export enum ImageActionNames {
+  SELECT_IMAGE = 'SELECT_IMAGE'
+}
 
-export const SOCKET = 'SOCKET'
+export enum SocketActionNames {
+  SOCKET = 'SOCKET'
+}

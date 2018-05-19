@@ -4,9 +4,17 @@ import { connect } from 'react-redux'
 import ReloadButton from './ReloadButton'
 import Image from './Image'
 
+import { RootState } from '../reducers'
+
 import * as style from './RandomList.scss'
 
-class RandomList extends React.Component {
+interface Props {
+  random: {
+    data: string[]
+  }
+}
+
+class RandomList extends React.Component<Props> {
   render () {
     return (
       <div className={style.container}>
@@ -26,7 +34,7 @@ class RandomList extends React.Component {
   }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (store: RootState) => {
   return ({ random: store.random })
 }
 

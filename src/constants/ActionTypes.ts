@@ -1,6 +1,8 @@
-export const RANDOM = 'RANDOM'
-export const LOAD_RANDOM = 'LOAD_RANDOM'
-export const SET_RANDOM = 'SET_RANDOM'
+export enum RandomActionNames {
+  RANDOM = 'RANDOM',
+  LOAD_RANDOM = 'LOAD_RANDOM',
+  SET_RANDOM = 'SET_RANDOM',
+}
 
 export enum HistoryActionNames {
   HISTORY = 'HISTORY',

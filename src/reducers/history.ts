@@ -1,7 +1,7 @@
 import { HistoryActionNames as ActionNames } from '../constants/ActionTypes'
 
 interface State {
-  data: String[]
+  data: string[]
 }
 
 type GetHistoryAction = { type: ActionNames.HISTORY }

@@ -4,11 +4,11 @@ import * as types from '../constants/ActionTypes'
 
 export const loadRandom = () => {
   store().getState().socket.socket.emit('load random')
-  return { type: types.LOAD_RANDOM }
+  return { type: types.RandomActionNames.LOAD_RANDOM }
 }
 
 export const setRandom = (data: string) => {
-  return { type: types.SET_RANDOM, payload: data }
+  return { type: types.RandomActionNames.SET_RANDOM, payload: data }
 }
 
 export const addHistory = (data: string) => {

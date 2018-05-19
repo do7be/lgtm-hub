@@ -9,6 +9,8 @@ export enum HistoryActionNames {
   ADD_HISTORY = 'ADD_HISTORY',
 }
 
-export const SELECT_IMAGE = 'SELECT_IMAGE'
+export enum ImageActionNames {
+  SELECT_IMAGE = 'SELECT_IMAGE'
+}
 
 export const SOCKET = 'SOCKET'

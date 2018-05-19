@@ -24,9 +24,8 @@ export const setHistory = (data: string) => {
   return { type: types.HistoryActionNames.SET_HISTORY, payload: data }
 }
 
-// TODO
-export const selectImage = (data: any) => {
+export const selectImage = (data: { img: string }) => {
   store().getState().socket.socket.emit('select image', data)
 
-  return { type: types.SELECT_IMAGE }
+  return { type: types.ImageActionNames.SELECT_IMAGE }
 }

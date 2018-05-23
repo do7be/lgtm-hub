@@ -28,12 +28,15 @@
 }
 
 .button {
+  margin: 0;
   padding: 7px 16px;
   background-color: #bfbfbf;
   border-radius: 14px;
   font-size: 14px;
+  font-weight: bold;
   color: #fff;
   border: none;
   text-align: center;
+  line-height: 1;
   cursor: pointer;
 }

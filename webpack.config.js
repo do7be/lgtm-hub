@@ -7,7 +7,10 @@ const cacheLoaderOptions = {
   cacheDirectory: findCacheDir({ name: 'cache-loader' })
 }
 const threadLoaderOptions = {
-  workers: require('physical-cpu-count') - 1,
+  workers: require('physical-cpu-count') - 1
+}
+const tsLoaderOptions = {
+  happyPackMode: true,
 }
 
 module.exports = (env, argv) => {
@@ -44,14 +47,17 @@ module.exports = (env, argv) => {
           use: [
             {
               loader: 'cache-loader',
-              options: cacheLoaderOptions
+              options: cacheLoaderOptions,
             },
             {
               loader: 'thread-loader',
               options: threadLoaderOptions,
             },
             {
-              loaders: ['style-loader', 'css-loader'],
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader',
             },
           ]
         },
@@ -60,14 +66,20 @@ module.exports = (env, argv) => {
           use: [
             {
               loader: 'cache-loader',
-              options: cacheLoaderOptions
+              options: cacheLoaderOptions,
             },
             {
               loader: 'thread-loader',
               options: threadLoaderOptions,
             },
             {
-              loaders: ['style-loader', 'css-loader?modules', 'sass-loader']
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader?modules',
+            },
+            {
+              loader: 'sass-loader',
             },
           ],
         },
@@ -76,14 +88,18 @@ module.exports = (env, argv) => {
           use: [
             {
               loader: 'cache-loader',
-              options: cacheLoaderOptions
+              options: cacheLoaderOptions,
             },
             {
               loader: 'thread-loader',
               options: threadLoaderOptions,
             },
             {
-              loaders: ['babel-loader', 'ts-loader'],
+              loader: 'babel-loader',
+            },
+            {
+              loader: 'ts-loader',
+              options: tsLoaderOptions,
             }
           ]
         },
@@ -93,7 +109,7 @@ module.exports = (env, argv) => {
           use: [
             {
               loader: 'cache-loader',
-              options: cacheLoaderOptions
+              options: cacheLoaderOptions,
             },
             {
               loader: 'thread-loader',

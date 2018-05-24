@@ -2,6 +2,16 @@ const path = require('path')
 const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const CleanAssetsPlugin = require('clean-assets-webpack-plugin')
+const findCacheDir = require('find-cache-dir')
+const cacheLoaderOptions = {
+  cacheDirectory: findCacheDir({ name: 'cache-loader' })
+}
+const threadLoaderOptions = {
+  workers: require('physical-cpu-count') - 1
+}
+const tsLoaderOptions = {
+  happyPackMode: true,
+}
 
 module.exports = (env, argv) => {
   return {
@@ -34,20 +44,81 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.css$/,
-          loaders: ['style-loader', 'css-loader'],
+          use: [
+            {
+              loader: 'cache-loader',
+              options: cacheLoaderOptions,
+            },
+            {
+              loader: 'thread-loader',
+              options: threadLoaderOptions,
+            },
+            {
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader',
+            },
+          ]
         },
         {
           test: /\.scss$/,
-          loaders: ['style-loader', 'css-loader?modules', 'sass-loader'],
+          use: [
+            {
+              loader: 'cache-loader',
+              options: cacheLoaderOptions,
+            },
+            {
+              loader: 'thread-loader',
+              options: threadLoaderOptions,
+            },
+            {
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader?modules',
+            },
+            {
+              loader: 'sass-loader',
+            },
+          ],
         },
         {
           test: /\.tsx?$/,
-          loaders: ['babel-loader', 'ts-loader']
+          use: [
+            {
+              loader: 'cache-loader',
+              options: cacheLoaderOptions,
+            },
+            {
+              loader: 'thread-loader',
+              options: threadLoaderOptions,
+            },
+            {
+              loader: 'babel-loader',
+            },
+            {
+              loader: 'ts-loader',
+              options: tsLoaderOptions,
+            }
+          ]
         },
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          use: [
+            {
+              loader: 'cache-loader',
+              options: cacheLoaderOptions,
+            },
+            {
+              loader: 'thread-loader',
+              options: threadLoaderOptions,
+            },
+            {
+              loader: 'babel-loader',
+            },
+          ]
         },
         {
           test: /\.svg$/,

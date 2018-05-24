@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: node:9.2.0
+    image: node:9.11.1
     volumes:
       - .:/app
       - /app/node_modules
@@ -16,7 +16,7 @@ services:
       - redis:redis
 
   builder:
-    image: node:9.2.0
+    image: node:9.11.1
     command: bash ./run-build.sh
     volumes:
       - .:/app

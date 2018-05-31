@@ -1,8 +1,15 @@
-const path = require('path')
-const webpack = require('webpack')
-const ManifestPlugin = require('webpack-manifest-plugin')
-const CleanAssetsPlugin = require('clean-assets-webpack-plugin')
-const findCacheDir = require('find-cache-dir')
+// tsconfig.jsonではなく、webpack用のtsconfigを使用するようにしているが、エディタ側がtsconfig.jsonを参照してしまうため
+// @ts-ignore
+import path = require('path')
+// @ts-ignore
+import webpack = require('webpack')
+// @ts-ignore
+import ManifestPlugin = require('webpack-manifest-plugin')
+// @ts-ignore
+import CleanAssetsPlugin = require('clean-assets-webpack-plugin')
+// @ts-ignore
+import findCacheDir = require('find-cache-dir')
+
 const cacheLoaderOptions = {
   cacheDirectory: findCacheDir({ name: 'cache-loader' })
 }
@@ -13,7 +20,7 @@ const tsLoaderOptions = {
   happyPackMode: true,
 }
 
-module.exports = (env, argv) => {
+module.exports = (_env: any, argv: { mode: webpack.Configuration['mode'] }) => {
   const isProduction = argv.mode === 'production'
   return {
     entry: {
@@ -33,7 +40,7 @@ module.exports = (env, argv) => {
         '__DEV__': !isProduction
       }),
       new ManifestPlugin({ fileName: path.resolve(__dirname, 'manifest.json') }),
-      new CleanAssetsPlugin()
+      new CleanAssetsPlugin(path.resolve(__dirname, 'public/js/dist'))
     ],
     optimization: {
       minimize: isProduction,
@@ -42,15 +49,16 @@ module.exports = (env, argv) => {
       }
     },
     module: {
-      rules: rules(argv.mode)
+      rules: rules(isProduction)
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      modules: ['node_modules'],
     },
   }
 };
 
-function rules (mode) {
+function rules (_isProduction: boolean) {
   return [
     {
       test: /\.css$/,

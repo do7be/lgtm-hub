@@ -14,6 +14,7 @@ const tsLoaderOptions = {
 }
 
 module.exports = (env, argv) => {
+  const isProduction = argv.mode === 'production'
   return {
     entry: {
       'index': [
@@ -21,7 +22,7 @@ module.exports = (env, argv) => {
       ]
     },
     output: {
-      filename: argv.mode !== 'production'
+      filename: !isProduction
         ? '[name].dev.js'
         : '[name].[hash].js',
       path: path.resolve(__dirname, 'public/js/dist'),
@@ -29,128 +30,116 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        '__DEV__': argv.mode !== 'production'
+        '__DEV__': !isProduction
       }),
       new ManifestPlugin({ fileName: path.resolve(__dirname, 'manifest.json') }),
       new CleanAssetsPlugin()
     ],
     optimization: {
-      minimize: argv.mode === 'production',
+      minimize: isProduction,
       splitChunks: {
         chunks: 'all'
       }
     },
     module: {
-      rules: [
-        {
-          test: /\.css$/,
-          use: [
-            {
-              loader: 'cache-loader',
-              options: cacheLoaderOptions,
-            },
-            {
-              loader: 'thread-loader',
-              options: threadLoaderOptions,
-            },
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',
-            },
-          ]
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            {
-              loader: 'cache-loader',
-              options: cacheLoaderOptions,
-            },
-            {
-              loader: 'thread-loader',
-              options: threadLoaderOptions,
-            },
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader?modules',
-            },
-            {
-              loader: 'sass-loader',
-            },
-          ],
-        },
-        {
-          test: /\.tsx?$/,
-          use: [
-            {
-              loader: 'cache-loader',
-              options: cacheLoaderOptions,
-            },
-            {
-              loader: 'thread-loader',
-              options: threadLoaderOptions,
-            },
-            {
-              loader: 'babel-loader',
-            },
-            {
-              loader: 'ts-loader',
-              options: tsLoaderOptions,
-            }
-          ]
-        },
-        {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'cache-loader',
-              options: cacheLoaderOptions,
-            },
-            {
-              loader: 'thread-loader',
-              options: threadLoaderOptions,
-            },
-            {
-              loader: 'babel-loader',
-            },
-          ]
-        },
-        {
-          test: /\.svg$/,
-          use: [
-            {
-              loader: 'babel-loader'
-            },
-            {
-              loader: 'react-svg-loader',
-              options: {
-                jsx: true
-              }
-            }
-          ]
-        },
-        {
-          test: /\.(jpg|png)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[name].[hash].[ext]',
-                outputPath: '../../images',
-                publicPath: 'images'
-              }
-            }
-          ]
-        }
-      ]
+      rules: rules(argv.mode)
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
   }
 };
+
+function rules (mode) {
+  return [
+    {
+      test: /\.css$/,
+      use: [
+        {
+          loader: 'cache-loader',
+          options: cacheLoaderOptions,
+        },
+        {
+          loader: 'thread-loader',
+          options: threadLoaderOptions,
+        },
+        { loader: 'style-loader' },
+        { loader: 'css-loader' },
+      ]
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        {
+          loader: 'cache-loader',
+          options: cacheLoaderOptions,
+        },
+        {
+          loader: 'thread-loader',
+          options: threadLoaderOptions,
+        },
+        { loader: 'style-loader' },
+        { loader: 'css-loader?modules' },
+        { loader: 'sass-loader' },
+      ],
+    },
+    {
+      test: /\.tsx?$/,
+      use: [
+        {
+          loader: 'cache-loader',
+          options: cacheLoaderOptions,
+        },
+        {
+          loader: 'thread-loader',
+          options: threadLoaderOptions,
+        },
+        { loader: 'babel-loader' },
+        {
+          loader: 'ts-loader',
+          options: tsLoaderOptions,
+        }
+      ]
+    },
+    {
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: 'cache-loader',
+          options: cacheLoaderOptions,
+        },
+        {
+          loader: 'thread-loader',
+          options: threadLoaderOptions,
+        },
+        { loader: 'babel-loader' },
+      ]
+    },
+    {
+      test: /\.svg$/,
+      use: [
+        { loader: 'babel-loader' },
+        {
+          loader: 'react-svg-loader',
+          options: {
+            jsx: true
+          }
+        }
+      ]
+    },
+    {
+      test: /\.(jpe?g|png)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[hash].[ext]',
+            outputPath: '../../images',
+            publicPath: 'images'
+          }
+        }
+      ]
+    }
+  ]
+}

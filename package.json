@@ -4,8 +4,8 @@
   "description": "Get and recommend a picture of \"LGTM\" for Markdown.",
   "main": "app.js",
   "scripts": {
-    "build": "TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode production",
-    "watch": "TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack -w --mode development",
+    "build": "webpack --mode production",
+    "watch": "webpack -w --mode development",
     "start": "pm2-runtime app.json --env production",
     "dev": "pm2-runtime app.json --watch"
   },

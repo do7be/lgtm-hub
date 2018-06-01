@@ -1,13 +1,7 @@
-// tsconfig.jsonではなく、webpack用のtsconfigを使用するようにしているが、エディタ側がtsconfig.jsonを参照してしまうため
-// @ts-ignore
 import path = require('path')
-// @ts-ignore
 import webpack = require('webpack')
-// @ts-ignore
 import ManifestPlugin = require('webpack-manifest-plugin')
-// @ts-ignore
 import CleanAssetsPlugin = require('clean-assets-webpack-plugin')
-// @ts-ignore
 import findCacheDir = require('find-cache-dir')
 
 const cacheLoaderOptions = {
@@ -18,6 +12,7 @@ const threadLoaderOptions = {
 }
 const tsLoaderOptions = {
   happyPackMode: true,
+  configFile: path.resolve(__dirname, 'src/tsconfig.json'),
 }
 
 module.exports = (_env: any, argv: { mode: webpack.Configuration['mode'] }) => {

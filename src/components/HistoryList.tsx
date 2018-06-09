@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { addHistory, loadHistory, setHistory } from '../actions'
+import { addHistory, loadHistory } from '../actions'
 
 import { RootState } from '../reducers'
 import { State as HistoryState } from '../reducers/history'
-import { State as SocketState } from '../reducers/socket'
 
 import Image from './Image'
 
@@ -15,7 +14,6 @@ interface OwnProps {}
 
 interface ReduxProps {
   history: HistoryState
-  socket: SocketState
 }
 
 type Props = OwnProps & ReduxProps & typeof mapDispatchToProps
@@ -24,13 +22,10 @@ export class HistoryList extends React.Component<Props> {
   componentDidMount () {
     this.props.loadHistory()
 
-    this.props.socket.socket.on('add recommend', (data: string) => {
-      this.props.addHistory(data)
-    })
+    // this.props.socket.socket.on('add recommend', (data: string) => {
+    //   this.props.addHistory(data)
+    // })
 
-    this.props.socket.socket.on('load recommend', (data: string) => {
-      this.props.setHistory(data)
-    })
   }
 
   render () {
@@ -50,13 +45,12 @@ export class HistoryList extends React.Component<Props> {
 }
 
 const mapStateToProps = (store: RootState) => {
-  return ({ history: store.history, socket: store.socket })
+  return ({ history: store.history })
 }
 
 const mapDispatchToProps = {
   addHistory,
-  loadHistory,
-  setHistory
+  loadHistory
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryList)

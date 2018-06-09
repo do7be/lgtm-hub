@@ -2,10 +2,10 @@ const express = require('express');
 const sanitize = require('validator');
 const request = require ('request');
 const compression = require('compression')
-const socket_io = require('socket.io');
 const manifest = require('./manifest.json')
 const redis = require('then-redis')
 const kvs = redis.createClient(process.env.REDIS_URL)
+const bodyParser = require('body-parser')
 let app = express();
 let server = require('http').createServer(app);
 
@@ -16,6 +16,9 @@ app.set('views', __dirname + '/views');
 
 app.use(compression({level: 6}));
 app.use(express.static(__dirname + '/public'));
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use(function (req, res, next) {
   if (process.env.NODE_ENV === 'production') {
@@ -46,48 +49,42 @@ const jsPath = {
 }
 
 // route
-app.get('/', function(request, response) {
-  response.render('index', { production: env === 'production', jsPath });
-});
+app.get('/', function (req, res) {
+  res.render('index', { production: env === 'production', jsPath })
+})
 
-// Socket.io
-let io = socket_io.listen(server);
 const redisKey = 'history'
-
-io.on('connection', async function (socket) {
+app.get('/recommend', async function (req, res) {
   const recommend = await kvs.lrange(redisKey, 0, -1) || []
-  socket.emit('load recommend', recommend);
-
-  // recommend image to other people when user select image
-  socket.on('select image', async function (data) {
-    let imgUrl = data.img
-
-    const recommend = await kvs.lrange(redisKey, 0, -1) || []
-    if (checkDataImg(imgUrl, recommend)) {
-      imgUrl = sanitize.toString(imgUrl)
-      await kvs.rpush(redisKey, imgUrl)
-      if ((await kvs.llen(redisKey)) > 24) {
-        await kvs.lpop(redisKey)
-      }
-      await kvs.expireat(redisKey, parseInt((new Date) / 1000, 10) + 60 * 60 * 24 * 10) // 10日キャッシュ
-      // recommend image to other people
-      io.sockets.emit('add recommend', imgUrl)
-    }
+  res.header('Content-Type', 'application/json; charset=utf-8')
+  res.end(JSON.stringify(recommend))
+})
+app.get('/random', function (req, res) {
+  let tasks = [
+    getJsonLgtmin(),
+    getJsonLgtmin(),
+    getJsonLgtmin(),
+  ]
+  Promise.all(tasks).then(function(results) {
+    res.header('Content-Type', 'application/json; charset=utf-8')
+    res.end(JSON.stringify(results))
   })
+})
+app.post('/select', async function (req, res) {
+  const imgUrl = req.body.img
 
-  // init load or click reload button
-  socket.on('load random', function (data) {
-    // call 3 times with async
-    let tasks = [
-      getJsonLgtmin(),
-      getJsonLgtmin(),
-      getJsonLgtmin(),
-    ];
-    Promise.all(tasks).then(function(results) {
-      socket.emit('loaded random', results);
-    });
-  });
-});
+  const recommend = await kvs.lrange(redisKey, 0, -1) || []
+  if (checkDataImg(imgUrl, recommend)) {
+    const filteredImgUrl = sanitize.toString(imgUrl)
+    await kvs.rpush(redisKey, filteredImgUrl)
+    if ((await kvs.llen(redisKey)) > 24) {
+      await kvs.lpop(redisKey)
+    }
+    await kvs.expireat(redisKey, parseInt((new Date) / 1000, 10) + 60 * 60 * 24 * 10) // 10日キャッシュ
+  }
+  res.header('Content-Type', 'application/json; charset=utf-8')
+  res.end()
+})
 
 // request for get images to lgtm.in
 function getJsonLgtmin() {

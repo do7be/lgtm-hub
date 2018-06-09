@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { selectImage } from '../actions'
+import { addHistory, selectImage } from '../actions'
 
 import * as style from './Image.scss'
 
@@ -62,8 +62,9 @@ class Image extends React.Component<Props, State> {
     client.on('success', (_event: clipboard.Event) => { /* noop */ })
   }
 
-  onClickCopy = () => {
-  this.props.selectImage({ img: this.props.url })
+  onClickCopy = async () => {
+    this.props.addHistory(this.props.url)
+    void this.props.selectImage({ img: this.props.url })
 
     this.setState({ copyAnimation: true }, () => {
       setTimeout(() => {
@@ -74,6 +75,7 @@ class Image extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = {
+  addHistory,
   selectImage
 }
 

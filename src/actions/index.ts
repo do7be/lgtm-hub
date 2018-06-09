@@ -1,14 +1,13 @@
-import store from '../store'
-
+import { Dispatch } from 'redux'
+import { RootState } from '../reducers'
 import * as types from '../constants/ActionTypes'
 
 export const loadRandom = () => {
-  store().getState().socket.socket.emit('load random')
-  return { type: types.RandomActionNames.LOAD_RANDOM }
-}
-
-export const setRandom = (data: string[]) => {
-  return { type: types.RandomActionNames.SET_RANDOM, payload: data }
+  return async function (dispatch: Dispatch<RootState>, _getState: any) {
+    const data: { imageUrl: string }[] = await (await fetch('/random')).json()
+    const imageData = data.map(image => image.imageUrl)
+    return dispatch({ type: types.RandomActionNames.LOAD_RANDOM, payload: imageData })
+  }
 }
 
 export const addHistory = (data: string) => {
@@ -16,16 +15,22 @@ export const addHistory = (data: string) => {
 }
 
 export const loadHistory = () => {
-  store().getState().socket.socket.emit('load recommend')
-  return { type: types.HistoryActionNames.LOAD_HISTORY }
-}
-
-export const setHistory = (data: string) => {
-  return { type: types.HistoryActionNames.SET_HISTORY, payload: data }
+  return async function (dispatch: Dispatch<RootState>, _getState: any) {
+    const data: ReadonlyArray<string> = await (await fetch('/recommend')).json()
+    return dispatch({ type: types.HistoryActionNames.LOAD_HISTORY, payload: data })
+  }
 }
 
 export const selectImage = (data: { img: string }) => {
-  store().getState().socket.socket.emit('select image', data)
+  return async function (dispatch: Dispatch<RootState>, _getState: any) {
+    const method = 'POST'
+    const body = JSON.stringify(data)
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+    const options = { method, headers, body }
+    await fetch('/select', options)
 
-  return { type: types.ImageActionNames.SELECT_IMAGE }
+    return dispatch({ type: types.ImageActionNames.SELECT_IMAGE })
+  }
 }

@@ -5,19 +5,21 @@ export interface State {
 }
 
 type GetHistoryAction = { type: ActionNames.HISTORY }
-type SetHistoryAction = { type: ActionNames.SET_HISTORY, payload: string[] }
+type LoadHistoryAction = { type: ActionNames.LOAD_HISTORY, payload: string[] }
 type AddHistoryAction = { type: ActionNames.ADD_HISTORY, payload: string }
-type Actions = GetHistoryAction|SetHistoryAction|AddHistoryAction
+type Actions = GetHistoryAction|LoadHistoryAction|AddHistoryAction
 
 export default function random (state: State = { data: [] }, action: Actions) {
   switch (action.type) {
     case ActionNames.HISTORY:
       return { data: state.data }
-    case ActionNames.SET_HISTORY:
+    case ActionNames.LOAD_HISTORY:
       return { data: action.payload.reverse() }
     case ActionNames.ADD_HISTORY:
-      const recommendData = Array.from(state.data)
-      recommendData.unshift(action.payload)
+      const recommendData = state.data
+      if (!recommendData.includes(action.payload)) {
+        recommendData.unshift(action.payload)
+      }
 
       return {
         data: recommendData.slice(0, 24)

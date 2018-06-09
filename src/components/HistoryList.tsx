@@ -21,11 +21,6 @@ type Props = OwnProps & ReduxProps & typeof mapDispatchToProps
 export class HistoryList extends React.Component<Props> {
   componentDidMount () {
     this.props.loadHistory()
-
-    // this.props.socket.socket.on('add recommend', (data: string) => {
-    //   this.props.addHistory(data)
-    // })
-
   }
 
   render () {

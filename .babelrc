@@ -17,5 +17,14 @@
       }
     ]
   ],
-  "plugins": ["transform-class-properties"]
+  "plugins": [
+    ["transform-class-properties"],
+    [
+      "@babel/plugin-transform-runtime", {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true
+      }
+    ]
+  ]
 }

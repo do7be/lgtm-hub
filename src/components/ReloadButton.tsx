@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { loadRandom, setRandom } from '../actions'
+import { loadRandom } from '../actions'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 import { Tooltip } from 'react-tippy'
 
 import { RootState } from '../reducers'
 import { State as RandomState } from '../reducers/random'
-import { State as SocketState } from '../reducers/socket'
 
 import ReloadSvg from './reload.svg'
 
@@ -18,7 +17,6 @@ interface OwnProps {}
 
 interface ReduxProps {
   random: RandomState
-  socket: SocketState
 }
 
 type Props = OwnProps & ReduxProps & typeof mapDispatchToProps
@@ -36,11 +34,6 @@ class ReloadButton extends React.Component<Props, State> {
 
   componentDidMount () {
     this.handleReload()
-    this.props.socket.socket.on('loaded random', (data: { imageUrl: string }[]) => {
-      const imageData = data.map(image => image.imageUrl)
-      this.props.setRandom(imageData)
-      this.props.hideLoading()
-    })
   }
 
   componentDidUpdate (newProps: Props) {
@@ -79,19 +72,19 @@ class ReloadButton extends React.Component<Props, State> {
     })
   }
 
-  handleReload = () => {
-    this.props.loadRandom()
+  handleReload = async () => {
     this.props.showLoading()
+    await this.props.loadRandom()
+    this.props.hideLoading()
   }
 }
 
 const mapStateToProps = (store: RootState) => {
-  return ({ random: store.random, socket: store.socket })
+  return ({ random: store.random })
 }
 
 const mapDispatchToProps = {
   loadRandom,
-  setRandom,
   showLoading,
   hideLoading
 }

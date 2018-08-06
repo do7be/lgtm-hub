@@ -19,9 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const AWS = require('aws-sdk')
-const dynamo = new AWS.DynamoDB.DocumentClient({
+const dynamoConfig =
+  process.env.NODE_ENV === 'development' ? {
+    region: 'ap-northeast-1',
+    endpoint: "http://dynamodb:8000"
+  } : {
     region: 'ap-northeast-1'
-})
+  }
+const dynamo = new AWS.DynamoDB.DocumentClient(dynamoConfig)
 
 // app.use(function (req, res, next) {
 //   if (process.env.NODE_ENV === 'production') {
@@ -111,10 +116,7 @@ app.post('/select', async function (req, res) {
       UpdateExpression: 'SET #n = :newHistory'
     }
     await new Promise ((resolve, reject) => {
-      dynamo.update(params, function(err, data) {
-        console.log("dynamo_data:", data)
-        console.log("dynamo_err:", err)
-      })
+      dynamo.update(params, function(err, data) {})
     })
   }
   res.header('Content-Type', 'application/json; charset=utf-8')
@@ -153,8 +155,8 @@ function getHistory () {
   }
   return new Promise ((resolve, reject) => {
     dynamo.get(params, function(err, data) {
-      console.log("dynamo_data:", data)
-      console.log("dynamo_err:", err)
+      console.log(data)
+      console.log(err)
       resolve(data.Item.history)
     })
   })

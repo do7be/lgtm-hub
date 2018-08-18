@@ -2,7 +2,7 @@
   "name": "lgtm-hub",
   "version": "1.0.0",
   "description": "Get and recommend a picture of \"LGTM\" for Markdown.",
-  "main": "lambda.js",
+  "main": "app.js",
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack -w --mode development",

@@ -4,3 +4,9 @@ npm-debug.log
 yarn-error.log
 *.dev.js
 .node-version
+api-gateway-event.json
+ase/*
+cloudformation.yaml
+packaged-sam.yaml
+simple-proxy-api.yaml
+scripts/*

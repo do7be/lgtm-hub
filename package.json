@@ -6,8 +6,26 @@
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack -w --mode development",
-    "start": "pm2-runtime app.json --env production",
-    "dev": "pm2-runtime app.json --watch"
+    "start": "NODE_ENV=production node app.js",
+    "dev": "pm2-runtime app.json --watch",
+    "config": "node ./scripts/configure.js",
+    "deconfig": "node ./scripts/deconfigure.js",
+    "local": "node scripts/local",
+    "invoke-lambda": "aws lambda invoke --function-name $npm_package_config_functionName --region $npm_package_config_region --payload file://api-gateway-event.json lambda-invoke-response.json && cat lambda-invoke-response.json",
+    "create-bucket": "aws s3 mb s3://$npm_package_config_s3BucketName --region $npm_package_config_region",
+    "delete-bucket": "aws s3 rb s3://$npm_package_config_s3BucketName --region $npm_package_config_region",
+    "package": "aws cloudformation package --template ./cloudformation.yaml --s3-bucket $npm_package_config_s3BucketName --output-template packaged-sam.yaml --region $npm_package_config_region",
+    "deploy": "aws cloudformation deploy --template-file packaged-sam.yaml --stack-name $npm_package_config_cloudFormationStackName --capabilities CAPABILITY_IAM --region $npm_package_config_region",
+    "package-deploy": "npm run package && npm run deploy",
+    "delete-stack": "aws cloudformation delete-stack --stack-name $npm_package_config_cloudFormationStackName --region $npm_package_config_region",
+    "setup": "npm install && (aws s3api get-bucket-location --bucket $npm_package_config_s3BucketName --region $npm_package_config_region || npm run create-bucket) && npm run package-deploy"
+  },
+  "config": {
+    "s3BucketName": "YOUR_S3BUCKET_NAME",
+    "region": "YOUR_REGION",
+    "cloudFormationStackName": "YOUR_STACK_NAME",
+    "functionName": "YOUR_FUNCTION_NAME",
+    "accountId": "YOUR_ACCOUNT_NAME"
   },
   "repository": "git@github.com:do7be/lgtm-hub.git",
   "author": "do7be",
@@ -20,6 +38,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.49",
+    "acorn-globals": "^4.1.0",
+    "aws-sdk": "^2.286.2",
+    "aws-serverless-express": "^3.2.0",
     "classnames": "^2.2.5",
     "clipboard": "^2.0.0",
     "compression": "^1.6.1",

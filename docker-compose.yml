@@ -11,9 +11,9 @@ services:
     ports:
       - 5000:5000
     depends_on:
-      - redis
+      - dynamodb
     links:
-      - redis:redis
+      - dynamodb:dynamodb
 
   builder:
     image: node:9.11.1
@@ -23,7 +23,7 @@ services:
       - /app/node_modules
     working_dir: /app
 
-  redis:
-    image: redis:3.2.11-alpine
+  dynamodb:
+    image: deangiberson/aws-dynamodb-local
     ports:
-      - 16379:6379
+      - 8000:8000

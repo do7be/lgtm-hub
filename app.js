@@ -61,7 +61,7 @@ const jsPath = {
 
 // route
 app.get('/', (req, res) => {
-  res.render('index', { production: env === 'production', jsPath })
+  res.render('index', { production: env !== 'development', jsPath })
 })
 
 app.get('/js/index', (req, res) => {
